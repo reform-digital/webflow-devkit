@@ -99,9 +99,9 @@ If you are an existing DevKit user, you can skip this detailed guide and view th
    - Choose `Private` as the repository visibility.
    - Click on `Create repository` to generate your new repository.
 3. **Download the Repository Locally Using GitHub Desktop**:
-   - Navigate to your newly created GitHub repository.
+   - Navigate to your newly created GitHub repository (if not redirected there already upon creation).
    - Click on the `Code` button, and then choose `Open with GitHub Desktop`.
-   - Follow the steps in GitHub Desktop to choose a folder on your local machine where the repository files will be downloaded and synchronized.
+   - Follow the steps in GitHub Desktop to choose a folder on your local machine where the repository files will be downloaded and synchronized, and press `clone`.
 4. **Launch Your Development Environment**:
    - Open GitHub Desktop, locate your repository under `Current Repository`.
    - Click on the `Repository` tab in the top menu, and choose `Open in Visual Studio Code`.
