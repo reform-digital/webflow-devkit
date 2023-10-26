@@ -95,7 +95,7 @@ server.listen(PORT, () => {
   }
   console.log("\n\n\x1b[1m=== Alternative Import Method: ===\x1b[0m");
   console.log(
-    "\n\x1b[33mUse DevKit's \x1b]8;;https://example.com\x1b\\\x1b[1mAutomated Method\x1b]8;;\x1b\\\x1b[33m\x1b[22m for better script integration.\x1b[0m",
+    "\n\x1b[33mUse DevKit's \x1b]8;;https://github.com/reform-digital/webflow-devkit#2%EF%B8%8F%E2%83%A3-automated-method-recommended\x1b\\\x1b[1mAutomated Method\x1b]8;;\x1b\\\x1b[33m\x1b[22m for better script integration.\x1b[0m",
   );
 });
 
