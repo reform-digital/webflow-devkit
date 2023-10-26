@@ -13,6 +13,8 @@ const {
   version: currentVersion,
   description: currentDescription,
   author: currentAuthor,
+  keywords: currentKeywords = [],
+  license: currentLicense = "",
 } = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
 
 const getNextVersion = (current, type) => {
@@ -48,7 +50,7 @@ const checkDestination = async () => {
     {
       type: "list",
       name: "isCorrectName",
-      message: chalk.yellow(`Is the NPM destination "${currentName}"?`),
+      message: chalk.yellow(`[1/9] Is the NPM destination "${currentName}"?`),
       choices: ["YES", "NO (edit destination)", "Cancel"],
     },
   ]);
@@ -81,7 +83,7 @@ const checkDescription = async () => {
       type: "list",
       name: "isCorrectDescription",
       message: chalk.yellow(
-        `Is the package description "${currentDescription}"?`,
+        `[2/9] Is the package description "${currentDescription}"?`,
       ),
       choices: ["YES", "NO (edit description)", "Cancel"],
     },
@@ -112,7 +114,7 @@ const checkAuthor = async () => {
     {
       type: "list",
       name: "isCorrectAuthor",
-      message: chalk.yellow(`Is the author "${currentAuthor}"?`),
+      message: chalk.yellow(`[3/9] Is the author "${currentAuthor}"?`),
       choices: ["YES", "NO (edit author)", "Cancel"],
     },
   ]);
@@ -137,6 +139,84 @@ const checkAuthor = async () => {
   return { isCorrectAuthor, packageAuthor };
 };
 
+const checkKeywords = async () => {
+  let promptMessage, choices;
+  if (currentKeywords.length > 0) {
+    promptMessage = chalk.yellow(
+      `[4/9] Are the current keywords "${currentKeywords.join(", ")}"?`,
+    );
+    choices = ["YES", "NO (edit keywords)", "Cancel"];
+  } else {
+    promptMessage = chalk.yellow(
+      "Do you wish to add any keywords to your package?",
+    );
+    choices = ["YES", "NO", "Cancel"];
+  }
+
+  const { isCorrectKeywords } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "isCorrectKeywords",
+      message: promptMessage,
+      choices,
+    },
+  ]);
+
+  if (isCorrectKeywords === "Cancel") {
+    console.error(chalk.red("\nNPM shipment cancelled.\n"));
+    process.exit();
+  }
+
+  let packageKeywords = currentKeywords;
+  if (
+    isCorrectKeywords === "NO (edit keywords)" ||
+    (isCorrectKeywords === "YES" && currentKeywords.length === 0)
+  ) {
+    const { newPackageKeywords } = await inquirer.prompt([
+      {
+        type: "input",
+        name: "newPackageKeywords",
+        message: chalk.yellow("Enter the new keywords (comma separated):"),
+      },
+    ]);
+    packageKeywords = newPackageKeywords.split(",").map((kw) => kw.trim());
+  }
+
+  return { packageKeywords };
+};
+
+const checkLicense = async () => {
+  const { isCorrectLicense } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "isCorrectLicense",
+      message: chalk.yellow(
+        `[5/9] Is the package license "${currentLicense}"?`,
+      ),
+      choices: ["YES", "NO (edit license)", "Cancel"],
+    },
+  ]);
+
+  if (isCorrectLicense === "Cancel") {
+    console.error(chalk.red("\nNPM shipment cancelled.\n"));
+    process.exit();
+  }
+
+  let packageLicense = currentLicense;
+  if (isCorrectLicense === "NO (edit license)") {
+    const { newPackageLicense } = await inquirer.prompt([
+      {
+        type: "input",
+        name: "newPackageLicense",
+        message: chalk.yellow("Enter the new license:"),
+      },
+    ]);
+    packageLicense = newPackageLicense;
+  }
+
+  return { packageLicense };
+};
+
 const checkVersionType = async () => {
   let specificVersionChoices = versionChoices;
   let isInitialShipment = false;
@@ -152,7 +232,7 @@ const checkVersionType = async () => {
       type: "list",
       name: "version",
       message: chalk.yellow(
-        `What kind of change is this? (Current v${currentVersion})`,
+        `[6/9] What kind of change is this? (Current v${currentVersion})`,
       ),
       choices: [...specificVersionChoices, "Cancel"],
     },
@@ -173,7 +253,7 @@ const checkChangelog = async () => {
       {
         type: "input",
         name: "changelog",
-        message: chalk.yellow("Briefly describe the change:"),
+        message: chalk.yellow("[7/9] Briefly describe the change:"),
         validate: (input) => {
           if (input) return true;
           return "A change description is required!";
@@ -191,7 +271,7 @@ const checkReadmeUpdate = async () => {
     {
       type: "list",
       name: "hasUpdatedReadme",
-      message: chalk.yellow("Have you updated the README.md file?"),
+      message: chalk.yellow("[8/9] Have you updated the README.md file?"),
       choices: ["Yes", "No"],
     },
   ]);
@@ -211,7 +291,7 @@ const checkProceed = async () => {
     {
       type: "list",
       name: "proceed",
-      message: chalk.yellow("Package ready! Ship to NPM?"),
+      message: chalk.yellow("[9/9] Package ready! Ship to NPM?"),
       choices: ["Ship", "Cancel"],
     },
   ]);
@@ -283,6 +363,8 @@ const ship = async () => {
     const { packageName } = await checkDestination();
     const { packageDescription } = await checkDescription();
     const { packageAuthor } = await checkAuthor();
+    const { packageKeywords } = await checkKeywords();
+    const { packageLicense } = await checkLicense();
     const { version, isInitialShipment } = await checkVersionType();
     const { changelog } = await checkChangelog();
     await checkReadmeUpdate();
@@ -293,6 +375,13 @@ const ship = async () => {
     if (packageName) packageChanges.name = packageName;
     if (packageDescription) packageChanges.description = packageDescription;
     if (packageAuthor !== currentAuthor) packageChanges.author = packageAuthor;
+    if (
+      packageKeywords.length > 0 &&
+      JSON.stringify(packageKeywords) !== JSON.stringify(currentKeywords)
+    )
+      packageChanges.keywords = packageKeywords;
+    if (packageLicense && packageLicense !== currentLicense)
+      packageChanges.license = packageLicense;
 
     let newVersion;
 
