@@ -335,7 +335,7 @@ DevKit offers a custom script import mechanism designed to streamline and automa
 
 ### Setup
 
-**NPM Path:** Add this script to your site’s **global** settings in the `<head>` tag. Its purpose is to establish a variable representing your project's npm path, which becomes pivotal for subsequent script loader functions across your site.
+**NPM Path:** Add this script to your site’s **global** settings in the **`<head>`** tag. Its purpose is to establish a variable representing your project's npm path, which becomes pivotal for subsequent script loader functions across your site.
 
 ```
 <!-- RD® Webflow DevKit / NPM Path -->
@@ -346,14 +346,14 @@ const npmPath = "@reform-digital/sample-devkit-project"; // Update this once you
 
 When you eventually ship your package to npm, change the `npmPath` to your own npm package path to auto-direct the script loader to your live production files via jsDelivr.
 
-**Style Loader:** Add this script to your site’s **global** settings in the `<head>` tag. It enables the dynamic loading of styles based on the development server’s status.
+**Style Loader:** Add this script to your site’s **global** settings in the **`<head>`** tag. It enables the dynamic loading of styles based on the development server’s status.
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
 <script src="https://cdn.jsdelivr.net/gh/reform-digital/devkit-utils/style-loader.js"></script>
 ```
 
-**Script Loader:** Add this script to your site’s **global** settings before the `</body>` closing tag. It enables the dynamic loading of scripts based on the development server’s status.
+**Script Loader:** Add this script to your site’s **global** settings before the **`</body>`** closing tag. It enables the dynamic loading of scripts based on the development server’s status.
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
@@ -362,7 +362,7 @@ When you eventually ship your package to npm, change the `npmPath` to your own n
 
 ### Import Files
 
-**Global Styles:** If you have any global CSS files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings in the `<head>` tag, under the Style Loader script. Add and remove file names as required (the globalStyles variable is a comma-separated array).
+**Global Styles:** If you have any global CSS files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings in the **`<head>`** tag, under the Style Loader script. Add and remove file names as required (the globalStyles variable is a comma-separated array).
 
 ```
 <!-- RD® Webflow DevKit / Global Styles -->
@@ -372,19 +372,7 @@ loadWebflowStylesheets(globalStyles, npmPath);
 </script>
 ```
 
-**Page Styles:** If you have any page-specific CSS files that should be loaded on a specific page, import them by adding the following script to your **page** settings in the `<head>` tag.
-
-```
-<!-- RD® Webflow DevKit / Page Styles -->
-<script>
-const pageStyles = ["home.js"];
-loadWebflowStylesheets(pageStyles, npmPath);
-</script>
-```
-
-For the About page for example, if you have created an `about.css` in your src folder, you would replace `const pageStyles = ["home.css"];` with `const pageStyles = ["about.css"];`
-
-**Global Scripts:** If you have any global JavaScript files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings before the `</body>` closing tag, under the Script Loader script. Add and remove file names as required (the globalScripts variable is a comma-separated array).
+**Global Scripts:** If you have any global JavaScript files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings before the **`</body>`** closing tag, under the Script Loader script. Add and remove file names as required (the globalScripts variable is a comma-separated array).
 
 ```
 <!-- RD® Webflow DevKit / Global Scripts -->
@@ -394,7 +382,21 @@ loadWebflowScripts(globalScripts, npmPath);
 </script>
 ```
 
-**Page Scripts:** If you have any page-specific JavaScript files that should be loaded on a specific page, import them by adding the following script to your **page** settings before the `</body>` closing tag.
+**Page Styles:** If you have any page-specific CSS files that should be loaded on a specific page, import them by adding the following script to your **page** settings in the **`<head>`** tag.
+
+```
+<!-- RD® Webflow DevKit / Page Styles -->
+<script>
+const pageStyles = ["home.css"];
+loadWebflowStylesheets(pageStyles, npmPath);
+</script>
+```
+
+For the About page for example, if you have created an `about.css` in your src folder, you would replace `const pageStyles = ["home.css"];` with `const pageStyles = ["about.css"];`
+
+
+
+**Page Scripts:** If you have any page-specific JavaScript files that should be loaded on a specific page, import them by adding the following script to your **page** settings before the **`</body>`** closing tag.
 
 ```
 <!-- RD® Webflow DevKit / Page Scripts -->
