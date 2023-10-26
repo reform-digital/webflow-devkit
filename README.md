@@ -103,8 +103,8 @@ If you are an existing DevKit user, you can skip this detailed guide and view th
    - Click on the `Code` button, and then choose `Open with GitHub Desktop`.
    - Follow the steps in GitHub Desktop to choose a folder on your local machine where the repository files will be downloaded and synchronized, and press `clone`.
 4. **Launch Your Development Environment**:
-   - Open GitHub Desktop, locate your repository under `Current Repository`.
-   - Click on the `Repository` tab in the top menu, and choose `Open in Visual Studio Code`.
+   - In GitHub Desktop, check that your new repository is now listed under `Current Repository` and if not make sure to select it.
+   - Click on the `Repository` tab in the top menu, and choose `Open in Visual Studio Code` or use the quick button link.
    - Visual Studio Code should launch, opening your project repository locally, ready for development.
 
 ### Understanding Steps 2 & 3 (SSH Key Configuration)
