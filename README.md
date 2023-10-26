@@ -97,7 +97,7 @@ If you are an existing DevKit user, you can skip this detailed guide and view th
    - Click on `Use this template` at the top of the repository and choose `Create a new repository`.
    - Ensure the "Owner" is your GitHub username, and give your repository a unique name relevant to the project (e.g., `client-project-name`).
    - Choose `Private` as the repository visibility.
-   - Click on `Create repository from template` to generate your new repository.
+   - Click on `Create repository` to generate your new repository.
 3. **Download the Repository Locally Using GitHub Desktop**:
    - Navigate to your newly created GitHub repository.
    - Click on the `Code` button, and then choose `Open with GitHub Desktop`.
