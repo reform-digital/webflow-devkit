@@ -1,0 +1,33 @@
+{
+  "name": "@reform-digital/devkit-sample-project",
+  "version": "0.0.0",
+  "description": "This is a sample description for Webflow DevKit",
+  "author": "Reform Digital®",
+  "keywords": [],
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "prod"
+  ],
+  "main": "home.js",
+  "scripts": {
+    "dev": "node bin/build.js && node bin/server.js",
+    "prod": "NODE_ENV=production node bin/build.js && NODE_ENV=production node bin/server.js",
+    "ship": "node bin/ship.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.4",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "javascript-obfuscator": "^4.1.0",
+    "prettier": "^3.0.3"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "express": "^4.18.2",
+    "inquirer": "^9.2.11"
+  }
+}
