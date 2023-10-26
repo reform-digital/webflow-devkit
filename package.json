@@ -14,6 +14,7 @@
   "main": "home.js",
   "scripts": {
     "dev": "node bin/build.js && node bin/server.js",
+    "build": "NODE_ENV=production node bin/build.js",
     "prod": "NODE_ENV=production node bin/build.js && NODE_ENV=production node bin/server.js",
     "ship": "node bin/ship.mjs"
   },
