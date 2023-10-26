@@ -4,7 +4,7 @@
   "description": "This is a sample description for Webflow DevKit",
   "author": "Reform Digital®",
   "keywords": [],
-  "license": "ISC",
+  "license": "Proprietary",
   "publishConfig": {
     "access": "public"
   },
