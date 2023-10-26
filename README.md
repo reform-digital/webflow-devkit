@@ -94,7 +94,7 @@ If you are an existing DevKit user, you can skip this detailed guide and view th
    - If you haven’t done so, [create a GitHub account](https://github.com/join).
 2. **Clone this template**:
    - Navigate to the [main page](https://github.com/reform-digital/webflow-devkit) of the template repository.
-   - Click on `Use this template` at the top of the repository.
+   - Click on `Use this template` at the top of the repository and choose `Create a new repository`.
    - Ensure the "Owner" is your GitHub username, and give your repository a unique name relevant to the project (e.g., `client-project-name`).
    - Select `Include all branches` to also include a dev branch along with the main branch.
    - Choose `Private` as the repository visibility.
