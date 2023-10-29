@@ -1,4 +1,4 @@
 // Module logs the pagename so you can check what file scripts are loaded on each page
 export function checkScriptLoaded(pagename) {
-  console.log(`[DevKit]: ✅ ${pagename} script loaded`);
+  console.log(`${pagename} script loaded ✅`);
 }
