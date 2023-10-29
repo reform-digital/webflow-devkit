@@ -13,5 +13,5 @@ module.exports = {
   rules: {
     "prettier/prettier": "error",
   },
-  ignorePatterns: ["prod/**"],
+  ignorePatterns: ["prod/**", "dev/**"],
 };
