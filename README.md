@@ -469,9 +469,9 @@ pnpm ship
 
 ### Pre-shipment Checklist
 
-Executing the `pnpm ship` command starts a pre-shipment checklist. It ensures that the NPM destination, package description, change type (major, minor, patch), and changelog are correctly set.
+Executing the `pnpm ship` command starts a 9-step pre-shipment checklist. It ensures that the NPM destination, package description, change type (major, minor, patch), and other package details are correctly set.
 
-The script will guide you through the following:
+The script will interactively guide you through the following:
 
 - Confirming the destination package name. You can edit it if necessary.
 - Confirming the package description. Again, you can edit this if required.
