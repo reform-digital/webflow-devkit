@@ -296,8 +296,8 @@ Furthermore, the development server is enhanced with **sourcemaps**, which are i
 
 If your project incorporates **multiple DevKit templates** and you intend to run several local servers simultaneously, it’s necessary to assign unique port numbers to each. To configure this:
 
-- Open the server.js file located in the bin folder.
-- Locate the line const PORT = 3000;.
+- Open the `server.js` file located in the `bin` folder.
+- Locate the line `const PORT = 3000;`.
 - Modify the port number (3000) to an alternative number (e.g., 3001) to distinguish each template’s local server.
 
 By doing this, you enable the concurrent running of distinct local servers, each serving project files from a different template, all while avoiding port conflicts. 
