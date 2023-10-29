@@ -148,7 +148,7 @@ const checkKeywords = async () => {
     choices = ["YES", "NO (edit keywords)", "Cancel"];
   } else {
     promptMessage = chalk.yellow(
-      "Do you wish to add any keywords to your package?",
+      "[4/9] Do you wish to add any keywords to your package?",
     );
     choices = ["YES", "NO", "Cancel"];
   }
