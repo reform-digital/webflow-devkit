@@ -294,6 +294,14 @@ The development server facilitates **live reloading** on save, providing real-ti
 
 Furthermore, the development server is enhanced with **sourcemaps**, which are invaluable for debugging. Sourcemaps preserve the visibility of your initial code structure, even when inspecting your Webflow project. This feature is instrumental in tracing back to the origins of imported modules by referencing individual files, rather than navigating through bundled or minified code.
 
+If your project incorporates **multiple DevKit templates** and you intend to run several local servers simultaneously, it’s necessary to assign unique port numbers to each. To configure this:
+
+- Open the server.js file located in the bin folder.
+- Locate the line const PORT = 3000;.
+- Modify the port number (3000) to an alternative number (e.g., 3001) to distinguish each template’s local server.
+
+By doing this, you enable the concurrent running of distinct local servers, each serving project files from a different template, all while avoiding port conflicts. 
+
 <a name="importing-scripts-in-webflow"></a>
 
 ## ⤵️ Importing Scripts in Webflow
