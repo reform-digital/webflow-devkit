@@ -345,7 +345,11 @@ window.devModeOn = true; // Set to true to auto-detect and serve local test serv
 </script>
 ```
 
-When you eventually ship your package to npm, change the `npmPath` to your own npm package path to auto-direct the script loader to your live production files via jsDelivr.
+When you eventually ship your package to npm, change the `npmPath` to your own npm package path "@your-npm-username/your-package-name@version" to auto-direct the script loader to your live production files via jsDelivr.
+
+Developer Mode Toggle (devModeOn):
+- Set to **true** during development to load scripts and stylesheets from a local server whenever it is active, or from production when server is inactive.
+- Set to **false** to only serve files from production and hide any devMode logs.
 
 **Style Loader:** Add this script to your site’s **global** settings in the **`<head>`** tag. It enables the dynamic loading of styles based on the development server’s status.
 
