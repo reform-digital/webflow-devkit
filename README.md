@@ -476,6 +476,8 @@ The script will guide you through the following:
 - Confirming the destination package name. You can edit it if necessary.
 - Confirming the package description. Again, you can edit this if required.
 - Confirming the author. Similarly, you can edit this if required.
+- Confirming the package keywords. Again, you can edit or omit this if required.
+- Confirming the license type. Similarly, you can edit this if required.
 - Choosing the type of version update (patch, minor, major). For initial shipments, the version will be set to 1.0.0.
 - Describing the changes in this version, which will be appended to the CHANGELOG.md file.
 - Confirming that the README.md file has been updated.
