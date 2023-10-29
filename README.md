@@ -340,7 +340,8 @@ DevKit offers a custom script import mechanism designed to streamline and automa
 ```
 <!-- RD® Webflow DevKit / NPM Path -->
 <script>
-const npmPath = "@reform-digital/sample-devkit-project"; // Update this once you have shipped to npm.
+window.npmPath = "@reform-digital/sample-devkit-project"; // Update this once you have shipped to npm.
+window.devModeOn = true; // Set to true to auto-detect and serve local test server when running.
 </script>
 ```
 
@@ -350,14 +351,14 @@ When you eventually ship your package to npm, change the `npmPath` to your own n
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
-<script src="https://cdn.jsdelivr.net/gh/reform-digital/devkit-utils/style-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils/prod/style-loader.js"></script>
 ```
 
 **Script Loader:** Add this script to your site’s **global** settings before the **`</body>`** closing tag. It enables the dynamic loading of scripts based on the development server’s status.
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/gh/reform-digital/devkit-utils/script-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils/prod/script-loader.js"></script> 
 ```
 
 ### Import Files
@@ -840,7 +841,8 @@ Update path once shipped to npm.
 ```
 <!-- RD® Webflow DevKit / NPM Path -->
 <script>
-const npmPath = "@your-npm-username/your-package-name";
+window.npmPath = "@reform-digital/sample-devkit-project"; // Update this once you have shipped to npm.
+window.devModeOn = true; // Set to true to auto-detect and serve local test server when running.
 </script>
 ```
 
@@ -848,14 +850,14 @@ const npmPath = "@your-npm-username/your-package-name";
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
-<script src="https://cdn.jsdelivr.net/gh/reform-digital/devkit-utils/style-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils/prod/style-loader.js"></script>
 ```
 
 #### Script Loader: Add before global `</body>` closing tag
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/gh/reform-digital/devkit-utils/script-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils/prod/script-loader.js"></script> 
 ```
 
 #### Import Global Styles: Add in global `<head>` tag, under Style Loader.
