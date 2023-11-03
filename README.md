@@ -345,6 +345,7 @@ DevKit offers a custom script import mechanism designed to streamline and automa
 ### Setup
 
 **`Step 1` Main Settings:** 
+
 Add this script to your site’s **global** settings in the **`<head>`** tag. The script is designed to configure essential variables for your project: the path to your npm package, the development mode toggle, and the local port number. These variables are crucial for script loader functions and other development processes across your site.
 
 ```
@@ -363,6 +364,7 @@ window.localPort = 3000; // Also change in bin/localport.js in VS Code
    - **Local Port:** The `localPort` setting specifies the port number on which your local server is running. The default port is **3000** but can be altered to suit your needs, such as when running multiple local servers simultaneously. Adjust the `localPort` value in the main settings to your preferred port to direct the script-loader and style-loader to the correct local server. Ensure this change is also mirrored in the Webflow DevKit template within VS Code by modifying the file at `/bin/localport.js` to match otherwise the template will not connect accordingly. 
 
 **`Step 2` Style Loader:** 
+
 Add this script to your site’s **global** settings in the **`<head>`** tag. It enables the dynamic loading of styles based on the development server’s status.
 
 ```
@@ -371,6 +373,7 @@ Add this script to your site’s **global** settings in the **`<head>`** tag. It
 ```
 
 **`Step 3` Script Loader:** 
+
 Add this script to your site’s **global** settings before the **`</body>`** closing tag. It enables the dynamic loading of scripts based on the development server’s status.
 
 ```
