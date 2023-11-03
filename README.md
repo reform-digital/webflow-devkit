@@ -383,7 +383,9 @@ Add this script to your site’s **global** settings before the **`</body>`** cl
 
 ### Import Files
 
-**Global Styles:** If you have any global CSS files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings in the **`<head>`** tag, under the Style Loader script. Add and remove file names as required (the globalStyles variable is a comma-separated array).
+**`Global` Styles:** 
+
+If you have any global CSS files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings in the **`<head>`** tag, under the Style Loader script. Add and remove file names as required (the globalStyles variable is a comma-separated array).
 
 ```
 <!-- RD® Webflow DevKit / Global Styles -->
@@ -393,7 +395,9 @@ loadWebflowStylesheets(globalStyles, npmPath);
 </script>
 ```
 
-**Global Scripts:** If you have any global JavaScript files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings before the **`</body>`** closing tag, under the Script Loader script. Add and remove file names as required (the globalScripts variable is a comma-separated array).
+**`Global` Scripts:** 
+
+If you have any global JavaScript files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings before the **`</body>`** closing tag, under the Script Loader script. Add and remove file names as required (the globalScripts variable is a comma-separated array).
 
 ```
 <!-- RD® Webflow DevKit / Global Scripts -->
@@ -403,7 +407,9 @@ loadWebflowScripts(globalScripts, npmPath);
 </script>
 ```
 
-**Page Styles:** If you have any page-specific CSS files that should be loaded on a specific page, import them by adding the following script to your **page** settings in the **`<head>`** tag.
+**`Page` Styles:** 
+
+If you have any page-specific CSS files that should be loaded on a specific page, import them by adding the following script to your **page** settings in the **`<head>`** tag.
 
 ```
 <!-- RD® Webflow DevKit / Page Styles -->
@@ -416,7 +422,9 @@ loadWebflowStylesheets(pageStyles, npmPath);
 For the About page for example, if you have created an `about.css` in your src folder, you would replace `const pageStyles = ["home.css"];` with `const pageStyles = ["about.css"];`
 
 
-**Page Scripts:** If you have any page-specific JavaScript files that should be loaded on a specific page, import them by adding the following script to your **page** settings before the **`</body>`** closing tag.
+**`Page` Scripts:** 
+
+If you have any page-specific JavaScript files that should be loaded on a specific page, import them by adding the following script to your **page** settings before the **`</body>`** closing tag.
 
 ```
 <!-- RD® Webflow DevKit / Page Scripts -->
