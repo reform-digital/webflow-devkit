@@ -340,6 +340,8 @@ Integration steps:
 
 ### 2️⃣ Automated Method (Recommended)
 
+- Jump to [condensed version](https://github.com/reform-digital/webflow-devkit#2%EF%B8%8F%E2%83%A3-automated-method-recommended-1) (experienced DevKit users)
+
 DevKit offers a custom script import mechanism designed to streamline and automate the process of integrating JavaScript and CSS into your Webflow project. This approach eliminates the need for manual switching between script tags when moving from a development to a production environment, providing a smoother and more efficient workflow.
 
 ### Setup
