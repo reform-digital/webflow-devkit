@@ -866,7 +866,6 @@ pnpm prod
 
 #### Main Settings: Add in global `<head>` tag
 
-Update path once shipped to npm.
 
 ```
 <!-- RD® Webflow DevKit / Main Settings -->
