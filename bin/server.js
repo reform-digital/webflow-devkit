@@ -1,16 +1,15 @@
+const localPort = require("./localport");
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const http = require("http");
 const WebSocket = require("ws");
 const chokidar = require("chokidar");
-const { exec } = require("child_process"); // Importing child_process
-
+const { exec } = require("child_process");
 const isProd = process.env.NODE_ENV === "production";
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ noServer: true });
-const PORT = 3000;
 const OUT_DIR = isProd ? "prod" : "dev";
 const ENV_NAME = isProd ? "PROD" : "DEV";
 const LOG_COLOR = isProd ? "\x1b[96m" : "\x1b[32m";
@@ -56,7 +55,7 @@ chokidar
     }
   });
 
-server.listen(PORT, () => {
+server.listen(localPort, () => {
   console.log(
     LOG_COLOR,
     `\n[${ENV_NAME}] Local server RUNNING...`,
@@ -69,13 +68,13 @@ server.listen(PORT, () => {
     .filter((file) => file.endsWith(".js"))
     .map(
       (file) =>
-        `<script src="http://localhost:${PORT}/${file}" defer></script>`,
+        `<script src="http://localhost:${localPort}/${file}" defer></script>`,
     );
   const linkTags = outputFiles
     .filter((file) => file.endsWith(".css"))
     .map(
       (file) =>
-        `<link rel="stylesheet" href="http://localhost:${PORT}/${file}">`,
+        `<link rel="stylesheet" href="http://localhost:${localPort}/${file}">`,
     );
 
   if (scriptTags.length > 0) {
