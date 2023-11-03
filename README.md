@@ -118,7 +118,7 @@ For our specific use-case, we've incorporated **GitHub Actions** as our **Contin
 
 The steps that follow will walk you through the generation of an `SSH key pair`, integrating it with your GitHub account for authentication, and then securely archiving the private key in your GitHub repository as a secret. This structured approach ensures both your project and GitHub Actions can securely liaise with vital resources on GitHub, eliminating the need for exposing direct login credentials.
 
-## Step 2: Generate SSH Key Pair and Setup Public Key (First-Time Only)
+## Step 2: Setup SSH Key Pair & Public Key (First-Time Only)
 
 In this step, you'll generate an SSH key pair and add the public key to your GitHub account, enabling GitHub to recognize and trust communications from your computer. The good news is, once you've set this up, you won't have to repeat this step for future projects. It's a one-time configuration that benefits all your subsequent projects. To begin:
 
@@ -773,7 +773,14 @@ Once you've become a seasoned DevKit pro, you can skip the detailed Readme aimed
 
 <a name="step-2-setup-public-ssh-key-first-time-only2"></a>
 
-### Step 2: Setup Public SSH Key (First-Time Only)
+### Step 2: Setup SSH Key Pair & Public Key (First-Time Only)
+
+#### Check for Existing SSH Keys:
+
+```
+ls -al ~/.ssh
+```
+Look for files named id_rsa.pub, id_ecdsa.pub, or id_ed25519.pub. If such a file exists, you can skip the next step.
 
 #### Generate SSH Key Pair:
 
