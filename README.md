@@ -79,6 +79,7 @@ Before utilizing this template, ensure the following software and environments a
 - **[Visual Studio Code](https://code.visualstudio.com/):** A source-code editor that you'll use for writing and managing your code.
 - **[Node.js](https://nodejs.org/):** A JavaScript runtime to build and run your applications.
 - **[GitHub Desktop](https://desktop.github.com/):** (Optional, but recommended) A graphical interface that enables you to interact with GitHub without using the command line.
+- **[Google Chrome](https://www.google.com/chrome/):** A Chromium-based browser such as Google Chrome or Arc is required. Please note that this template is not compatible with Safari or some other browsers and may not function as intended if used with them.
 
 ---
 
@@ -343,34 +344,35 @@ DevKit offers a custom script import mechanism designed to streamline and automa
 
 ### Setup
 
-**NPM Path:** Add this script to your site’s **global** settings in the **`<head>`** tag. Its purpose is to establish a variable representing your project's npm path, which becomes pivotal for subsequent script loader functions across your site.
+**Main Settings:** Add this script to your site’s **global** settings in the **`<head>`** tag. The script is designed to configure essential variables for your project: the path to your npm package, the development mode toggle, and the local port number. These variables are crucial for script loader functions and other development processes across your site.
 
 ```
-<!-- RD® Webflow DevKit / NPM Path -->
+<!-- RD® Webflow DevKit / Main Settings -->
 <script>
-window.npmPath = "@reform-digital/sample-devkit-project"; // Update this once you have shipped to npm.
-window.devModeOn = true; // Set to true to auto-detect and serve local test server when running.
+window.npmPath = "@reform-digital/sample-project@1.0.0"; // Update this once you have shipped to npm.
+window.devMode = true; // Change to false in production
+window.localPort = 3000; // Also change in bin/localport.js in VS Code
 </script>
 ```
 
-When you eventually ship your package to npm, change the `npmPath` to your own npm package path "@your-npm-username/your-package-name@version" to auto-direct the script and style loaders to your live production files via jsDelivr.
+**Main Settings Configurations:**
 
-Developer Mode Toggle `devModeOn`:
-- Set to **true** during development to load scripts and stylesheets from a local server whenever it is active, or from production when server is inactive.
-- Set to **false** to only serve files from production and hide any devMode logs.
+   - **NPM Path:** The Main Settings script includes a default `npmPath` that serves as a placeholder during the development phase. Initially, the template is configured to bypass this sample project path, so there's no immediate need to alter it during development. Once your project is ready for deployment and you've published your package to npm, you should update the `npmPath` variable to your own npm package path "@your-npm-username/your-package-name@version" to auto-direct the script and style loaders to your live production files via jsDelivr.
+   - **Dev Mode:** The `devMode` variable is a boolean that controls whether the development mode is active (**true**) or inactive (**false**). When `devMode` is `true` (development mode), the integrated script-loader and style-loader will first check for a local server instance initiated by either `pnpm dev` or `pnpm prod` within VS Code. If a local server is found, it serves the site files directly from there, allowing for real-time testing and development—this local version is only visible to you, while other visitors continue to access the production files. In the absence of a local server, the loaders will fall back to the production version, fetching files via jsDelivr. Furthermore, devMode enables detailed console logging for both local and npm file requests, aiding in the debugging process and clarifying which file sources are being rendered in your local browser. Conversely, when `devMode` is set to `false``, it signifies that the site is in its production phase. The loaders will then bypass the local server check and directly load files from npm to optimize performance. Console logs related to devMode activities are also disabled in production mode to maintain a clean and performance-focused environment.
+   - **Local Port:** The `localPort` setting specifies the port number on which your local server is running. The default port is **3000** but can be altered to suit your needs, such as when running multiple local servers simultaneously. Adjust the `localPort`` value in the main settings to your preferred port to direct the script-loader and style-loader to the correct local server. Ensure this change is also mirrored in the Webflow DevKit template within VS Code by modifying the file at /bin/localport.js to match otherwise the template will not connect accordingly. 
 
 **Style Loader:** Add this script to your site’s **global** settings in the **`<head>`** tag. It enables the dynamic loading of styles based on the development server’s status.
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils/prod/style-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.0.7/prod/style-loader.js"></script>
 ```
 
 **Script Loader:** Add this script to your site’s **global** settings before the **`</body>`** closing tag. It enables the dynamic loading of scripts based on the development server’s status.
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils/prod/script-loader.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.0.7/prod/script-loader.js"></script> 
 ```
 
 ### Import Files
@@ -380,7 +382,7 @@ Developer Mode Toggle `devModeOn`:
 ```
 <!-- RD® Webflow DevKit / Global Styles -->
 <script>
-const globalStyles = ["global.css, animation.css"];
+const globalStyles = ["global.css", "animation.css"];
 loadWebflowStylesheets(globalStyles, npmPath);
 </script>
 ```
@@ -390,7 +392,7 @@ loadWebflowStylesheets(globalStyles, npmPath);
 ```
 <!-- RD® Webflow DevKit / Global Scripts -->
 <script>
-const globalScripts = ["global.js, analytics.js"];
+const globalScripts = ["global.js", "analytics.js"];
 loadWebflowScripts(globalScripts, npmPath);
 </script>
 ```
@@ -406,7 +408,6 @@ loadWebflowStylesheets(pageStyles, npmPath);
 ```
 
 For the About page for example, if you have created an `about.css` in your src folder, you would replace `const pageStyles = ["home.css"];` with `const pageStyles = ["about.css"];`
-
 
 
 **Page Scripts:** If you have any page-specific JavaScript files that should be loaded on a specific page, import them by adding the following script to your **page** settings before the **`</body>`** closing tag.
@@ -474,6 +475,7 @@ To build and initiate the development server, execute:
 ```
 pnpm ship
 ```
+Note: If you are using the GitHub extension for VS Code, you might receive the message "GitHub for VS Code is requesting additional permissions”. If so, review the permissions requested by the app and grant the necessary permissions. 
 
 ### Pre-shipment Checklist
 
@@ -853,10 +855,11 @@ pnpm prod
 Update path once shipped to npm.
 
 ```
-<!-- RD® Webflow DevKit / NPM Path -->
+<!-- RD® Webflow DevKit / Main Settings -->
 <script>
-window.npmPath = "@reform-digital/sample-devkit-project"; // Update this once you have shipped to npm.
-window.devModeOn = true; // Set to true to auto-detect and serve local test server when running.
+window.npmPath = "@reform-digital/sample-project@1.0.0"; // Update this once you have shipped to npm.
+window.devMode = true; // Change to false in production
+window.localPort = 3000; // Also change in bin/localport.js in VS Code
 </script>
 ```
 
@@ -864,52 +867,52 @@ window.devModeOn = true; // Set to true to auto-detect and serve local test serv
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils/prod/style-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.0.7/prod/style-loader.js"></script>
 ```
 
 #### Script Loader: Add before global `</body>` closing tag
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils/prod/script-loader.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.0.7/prod/script-loader.js"></script> 
 ```
 
-#### Import Global Styles: Add in global `<head>` tag, under Style Loader.
+#### Global Styles: Add in global `<head>` tag, under Style Loader.
 
 ```
 <!-- RD® Webflow DevKit / Global Styles -->
 <script>
-const globalStyles = ["global.css, animation.css"];
+const globalStyles = ["global.css", "animation.css"];
 loadWebflowStylesheets(globalStyles, npmPath);
 </script>
 ```
 
-#### Import Page-Specific Styles: Add in page `<head>` tag
-
-```
-<!-- RD® Webflow DevKit / Page Styles -->
-<script>
-const pageStyles = ["specific-page.css"];
-loadWebflowStylesheets(pageStyles, npmPath);
-</script>
-```
-
-#### Import Global Scripts: Add before global `</body>` closing tag, under Script Loader.
+#### Global Scripts: Add before global `</body>` closing tag, under Script Loader.
 
 ```
 <!-- RD® Webflow DevKit / Global Scripts -->
 <script>
-const globalScripts = ["global.js, analytics.js"];
+const globalScripts = ["global.js", "analytics.js"];
 loadWebflowScripts(globalScripts, npmPath);
 </script>
 ```
 
-#### Import Page-Specific Scripts: Add before page `</body>` closing tag
+#### Page Styles: Add in page `<head>` tag
+
+```
+<!-- RD® Webflow DevKit / Page Styles -->
+<script>
+const pageStyles = ["home.css"];
+loadWebflowStylesheets(pageStyles, npmPath);
+</script>
+```
+
+#### Page Scripts: Add before page `</body>` closing tag
 
 ```
 <!-- RD® Webflow DevKit / Page Scripts -->
 <script>
-const pageScripts = ["specific-page.js"];
+const pageScripts = ["home.js"];
 loadWebflowScripts(pageScripts, npmPath);
 </script>
 ```
@@ -921,6 +924,7 @@ loadWebflowScripts(pageScripts, npmPath);
 ```
 pnpm ship
 ```
+If you are using the GitHub extension for VS Code, grant the necessary permissions if prompted.
 
 ### Post-Shipment Steps:
 
