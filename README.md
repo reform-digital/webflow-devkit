@@ -864,7 +864,7 @@ pnpm prod
 
 ### 2️⃣ Automated Method (Recommended):
 
-#### Set NPM Path: Add in global `<head>` tag
+#### Main Settings: Add in global `<head>` tag
 
 Update path once shipped to npm.
 
