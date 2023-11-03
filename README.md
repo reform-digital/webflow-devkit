@@ -118,7 +118,7 @@ For our specific use-case, we've incorporated **GitHub Actions** as our **Contin
 
 The steps that follow will walk you through the generation of an `SSH key pair`, integrating it with your GitHub account for authentication, and then securely archiving the private key in your GitHub repository as a secret. This structured approach ensures both your project and GitHub Actions can securely liaise with vital resources on GitHub, eliminating the need for exposing direct login credentials.
 
-## Step 2: Setup Public SSH Key (First-Time Only)
+## Step 2: Generate SSH Key Pair and Setup Public Key (First-Time Only)
 
 In this step, you'll generate an SSH key pair and add the public key to your GitHub account, enabling GitHub to recognize and trust communications from your computer. The good news is, once you've set this up, you won't have to repeat this step for future projects. It's a one-time configuration that benefits all your subsequent projects. To begin:
 
@@ -126,7 +126,20 @@ In this step, you'll generate an SSH key pair and add the public key to your Git
 
    - Open a new terminal window within your Visual Studio Code session that contains your current project. You can achieve this by selecting `Terminal` from the main toolbar, followed by `New Terminal`. Alternatively, Mac users can use the `fn`+`control`+`~` shortcut.
 
-2. **Generate SSH Key Pair**:
+2. **Check for Existing SSH Keys**:
+
+   - Before creating a new SSH key, it's important to check if you already have an existing key that you can use.
+   
+   - Open your terminal and execute the following command to see if existing SSH keys are present:
+
+     ```sh
+     ls -al ~/.ssh
+     ```
+   - Look for files named id_rsa.pub, id_ecdsa.pub, or id_ed25519.pub. If such a file exists, you can skip the next step and proceed to add the key to GitHub if it's not already there.
+
+   - If no existing keys are suitable, or if you prefer to create a new one, follow the steps below to generate a new SSH key pair.
+
+3. **Generate SSH Key Pair**:
 
    - Execute the following command in your terminal. Ensure the `email` you use matches the one registered on your GitHub account.
 
@@ -144,7 +157,7 @@ In this step, you'll generate an SSH key pair and add the public key to your Git
        eval "$(ssh-agent -s)"
        ssh-add ~/.ssh/id_rsa
      ```
-
+      If you are using an existing key, replace id_rsa with the name of your existing private key file if it's different.
    - **For Windows:** Utilize an SSH agent available through Git Bash, Cygwin, or another tool.
 
 4. **Add SSH Key to GitHub Account**:
@@ -155,6 +168,7 @@ In this step, you'll generate an SSH key pair and add the public key to your Git
        ```sh
        cat ~/.ssh/id_rsa.pub | pbcopy
        ```
+       If you are using an existing key, replace id_rsa with the name of your existing public key file if it's different.
      - **Manual Copying** (make sure to copy all contents after running command):
        ```sh
        cat ~/.ssh/id_rsa.pub
