@@ -344,7 +344,7 @@ DevKit offers a custom script import mechanism designed to streamline and automa
 
 ### Setup
 
-**Step 1: Main Settings:** Add this script to your site’s **global** settings in the **`<head>`** tag. The script is designed to configure essential variables for your project: the path to your npm package, the development mode toggle, and the local port number. These variables are crucial for script loader functions and other development processes across your site.
+**`Step 1` Main Settings:** Add this script to your site’s **global** settings in the **`<head>`** tag. The script is designed to configure essential variables for your project: the path to your npm package, the development mode toggle, and the local port number. These variables are crucial for script loader functions and other development processes across your site.
 
 ```
 <!-- RD® Webflow DevKit / Main Settings -->
@@ -361,14 +361,14 @@ window.localPort = 3000; // Also change in bin/localport.js in VS Code
    - **Dev Mode:** The `devMode` variable is a boolean that controls whether the development mode is active (**true**) or inactive (**false**). When `devMode` is `true` (development mode), the integrated script-loader and style-loader will first check for a local server instance initiated by either `pnpm dev` or `pnpm prod` within VS Code. If a local server is found, it serves the site files directly from there, allowing for real-time testing and development—this local version is only visible to you, while other visitors continue to access the production files. In the absence of a local server, the loaders will fall back to the production version, fetching files via jsDelivr. Furthermore, devMode enables detailed console logging for both local and npm file requests, aiding in the debugging process and clarifying which file sources are being rendered in your local browser. Conversely, when `devMode` is set to `false`, it signifies that the site is in its production phase. The loaders will then bypass the local server check and directly load files from npm to optimize performance. Console logs related to devMode activities are also disabled in production mode to maintain a clean and performance-focused environment.
    - **Local Port:** The `localPort` setting specifies the port number on which your local server is running. The default port is **3000** but can be altered to suit your needs, such as when running multiple local servers simultaneously. Adjust the `localPort` value in the main settings to your preferred port to direct the script-loader and style-loader to the correct local server. Ensure this change is also mirrored in the Webflow DevKit template within VS Code by modifying the file at `/bin/localport.js` to match otherwise the template will not connect accordingly. 
 
-**Step 2: Style Loader:** Add this script to your site’s **global** settings in the **`<head>`** tag. It enables the dynamic loading of styles based on the development server’s status.
+**`Step 2` Style Loader:** Add this script to your site’s **global** settings in the **`<head>`** tag. It enables the dynamic loading of styles based on the development server’s status.
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
 <script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.0.7/prod/style-loader.js"></script>
 ```
 
-**Step 3: Script Loader:** Add this script to your site’s **global** settings before the **`</body>`** closing tag. It enables the dynamic loading of scripts based on the development server’s status.
+**`Step 3` Script Loader:** Add this script to your site’s **global** settings before the **`</body>`** closing tag. It enables the dynamic loading of scripts based on the development server’s status.
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
