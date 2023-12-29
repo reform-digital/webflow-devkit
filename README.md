@@ -387,7 +387,7 @@ Add this script to your site’s **global** settings in the **`<head>`** tag. It
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.0.7/prod/style-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/style-loader.js"></script>
 ```
 
 **`Step 3` Script Loader:** 
@@ -396,7 +396,7 @@ Add this script to your site’s **global** settings before the **`</body>`** cl
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.0.7/prod/script-loader.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/script-loader.js"></script> 
 ```
 
 ### Import Files
@@ -889,7 +889,9 @@ pnpm prod
 
 ### 2️⃣ Automated Method (Recommended):
 
-#### Main Settings: Add in global `<head>` tag
+### Core DevKit Scripts (Global):
+
+#### `Main Settings`: Add in global `<head>` tag
 
 
 ```
@@ -902,41 +904,33 @@ window.localPort = 3000; // Also change in bin/localport.js in VS Code
 </script>
 ```
 
-#### Style Loader: Add in global `<head>` tag
+#### `Style-Loader`: Add in global `<head>` tag
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.0.7/prod/style-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/style-loader.js"></script>
 ```
 
-#### Script Loader: Add before global `</body>` closing tag
+#### `Script-Loader`: Add before global `</body>` closing tag
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.0.7/prod/script-loader.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/script-loader.js"></script> 
 ```
 
-#### Global Styles: Add in global `<head>` tag, under Style Loader.
+### Project Code (Page level):
+
+#### Page `Scripts`: Add before page `</body>` closing tag
 
 ```
-<!-- RD® Webflow DevKit / Global Styles -->
+<!-- RD® Webflow DevKit / Page Scripts -->
 <script>
-const globalStyles = ["global.css", "animation.css"];
-loadWebflowStylesheets(globalStyles, npmPath);
+const pageScripts = ["home.js"];
+loadWebflowScripts(pageScripts, npmPath);
 </script>
 ```
 
-#### Global Scripts: Add before global `</body>` closing tag, under Script Loader.
-
-```
-<!-- RD® Webflow DevKit / Global Scripts -->
-<script>
-const globalScripts = ["global.js", "analytics.js"];
-loadWebflowScripts(globalScripts, npmPath);
-</script>
-```
-
-#### Page Styles: Add in page `<head>` tag
+#### Page `Styles`: Add in page `<head>` tag
 
 ```
 <!-- RD® Webflow DevKit / Page Styles -->
@@ -946,15 +940,30 @@ loadWebflowStylesheets(pageStyles, npmPath);
 </script>
 ```
 
-#### Page Scripts: Add before page `</body>` closing tag
+### Project Code (Global):
+
+#### Global `Scripts`: Add before global `</body>` closing tag, under Script Loader.
 
 ```
-<!-- RD® Webflow DevKit / Page Scripts -->
+<!-- RD® Webflow DevKit / Global Scripts -->
 <script>
-const pageScripts = ["home.js"];
-loadWebflowScripts(pageScripts, npmPath);
+const globalScripts = ["global.js", "analytics.js"];
+loadWebflowScripts(globalScripts, npmPath);
 </script>
 ```
+
+#### Global `Styles`: Add in global `<head>` tag, under Style Loader.
+
+```
+<!-- RD® Webflow DevKit / Global Styles -->
+<script>
+const globalStyles = ["global.css", "animation.css"];
+loadWebflowStylesheets(globalStyles, npmPath);
+</script>
+```
+
+
+
 
 <a name="shipping-to-npm2"></a>
 
