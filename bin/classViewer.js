@@ -25,6 +25,7 @@ window.Webflow = window.Webflow || [];
 window.Webflow.push(function () {
   addToggleButton();
   addStylesToBypassAnimations();
+  hideWebflowWizedBadges();
 });
 
 function addToggleButton() {
@@ -479,4 +480,19 @@ function copyBadgeText(event) {
   }, 2000);
 
   event.stopPropagation();
+}
+
+function hideWebflowWizedBadges() {
+  // Temporarily hide Webflow and Wized badges when the class viewer is on
+  let style = document.createElement("style");
+  style.innerHTML = `
+      a[href^="https://wized.com"] {
+        display: none !important;
+      }
+
+      a[href^="https://webflow.com"] {
+        display: none !important;
+      }
+    `;
+  document.head.appendChild(style);
 }
