@@ -1,3 +1,6 @@
 import { checkScriptLoaded } from "../modules/scriptLogger.js";
 
-checkScriptLoaded("Global");
+window.Webflow = window.Webflow || [];
+window.Webflow.push(function () {
+    checkScriptLoaded("Global");
+});
