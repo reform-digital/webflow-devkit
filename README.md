@@ -542,13 +542,13 @@ After successful shipment to NPM, depending on the script tag import method you'
 
 #### Automated Method (Recommended):
 
-Update npmPath: In your Webflow project, locate the npmPath script in global `<head>` section. Update the npmPath variable with your shipped NPM package path:
+Update npmPath: In your Webflow project, locate the DevKit "Main Settings" script in global `<head>` section. Update the npmPath variable with your shipped NPM package path:
 
 ```
 const npmPath = "@your-npm-username/your-package-name@version";
 ```
 
-This directs the script loader to fetch the production files from your NPM package when your local development server isn't active. Replace `@your-npm-username/your-package-name@version` with the appropriate values. While you can omit @version to always fetch the latest version of the script, doing so may lead to caching issues if the CDN or browsers cache an older version of the script. Specifying the exact version helps to ensure that users always receive the correct version of your script. Refer to [Addressing Version Caching](#addressing-version-caching) for ways to mitigate these issues.
+This directs the script loader to fetch the production files directly from your NPM package when DevMode is off (set to "false") during production. When DevMode is on (set to "true") during development, the script loader tries to load the scripts from your local development server when active and auto-switches to your NPM files when the local server is off. Replace `@your-npm-username/your-package-name@version` with the appropriate values. While you can omit @version to always fetch the latest version of the script, doing so may lead to caching issues if the CDN or browsers cache an older version of the script. Specifying the exact version helps to ensure that users always receive the correct version of your script. Refer to [Addressing Version Caching](#addressing-version-caching) for ways to mitigate these issues.
 
 #### Traditional Method:
 
