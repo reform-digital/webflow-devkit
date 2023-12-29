@@ -14,7 +14,22 @@ const OUT_DIR = isProd ? "prod" : "dev";
 const ENV_NAME = isProd ? "PROD" : "DEV";
 const LOG_COLOR = isProd ? "\x1b[96m" : "\x1b[32m";
 
+app.use(serveClassViewer);
 app.use(express.static(OUT_DIR));
+
+function serveClassViewer(req, res, next) {
+  if (req.path === "/classViewer.js") {
+    if (!isProd) {
+      let classViewerPath = path.join(__dirname, "classViewer.js");
+      return res.sendFile(classViewerPath);
+    } else {
+      res.type(".js");
+      return res.send("");
+    }
+  } else {
+    next();
+  }
+}
 
 server.on("upgrade", (request, socket, head) => {
   wss.handleUpgrade(request, socket, head, (ws) => {
@@ -35,22 +50,16 @@ chokidar
   .watch(path.join(__dirname, "..", "src/**/*.{js,css,html}"))
   .on("change", () => {
     if (!isProd) {
-      // Executing the build script
       exec("node bin/build.js", (error, stdout, stderr) => {
         if (error) {
           console.log(`\x1b[90mError during build: ${error}\x1b[0m`);
           return;
         }
-
-        // Log standard output and errors from the build script
         if (stdout) console.log(`Build output: ${stdout}`);
         if (stderr) console.log(`Build errors: ${stderr}`);
-
-        // Broadcast reload to connected WebSocket clients
         wss.broadcast("reload");
       });
     } else {
-      // In production, just notify of the file change without rebuilding
       wss.broadcast("reload");
     }
   });
@@ -81,7 +90,6 @@ server.listen(localPort, () => {
     console.log(
       "\n\x1b[1m=== JS Scripts: ===\x1b[0m \x1b[90m(Before </body> tag)\x1b[0m",
     );
-
     scriptTags.forEach((tag) => console.log("\n\x1b[33m", tag, "\x1b[0m"));
   }
 
@@ -89,7 +97,6 @@ server.listen(localPort, () => {
     console.log(
       "\n\x1b[1m=== CSS Scripts: ===\x1b[0m \x1b[90m(Inside <head> tag)\x1b[0m",
     );
-
     linkTags.forEach((tag) => console.log("\n\x1b[33m", tag, "\x1b[0m"));
   }
   console.log("\n\n\x1b[1m=== Alternative Import Method: ===\x1b[0m");
