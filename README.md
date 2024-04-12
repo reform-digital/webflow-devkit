@@ -1,4 +1,4 @@
-_\*Built with [Webflow Devkit](https://github.com/reform-digital/webflow-devkit)_
+_\*Proudly built with [Webflow Devkit](https://github.com/reform-digital/webflow-devkit)_
 
 # Webflow DevKit™ – by Reform Digital®
 
