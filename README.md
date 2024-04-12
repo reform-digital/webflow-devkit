@@ -129,12 +129,12 @@ In this step, you'll generate an SSH key pair and add the public key to your Git
 2. **Check for Existing SSH Keys**:
 
    - Before creating a new SSH key, it's important to check if you already have an existing key that you can use.
-   
    - Open your terminal and execute the following command to see if existing SSH keys are present:
 
      ```sh
      ls -al ~/.ssh
      ```
+
    - Look for files named `id_rsa.pub`, `id_ecdsa.pub`, or `id_ed25519.pub`. If such a file exists, you can skip Steps 3 & 4 below and proceed to add the key to GitHub (Step 5), **if you haven't already added it previously**.
 
    - If no existing keys are suitable, or if you prefer to create a new one, follow the steps below to generate a new SSH key pair.
@@ -149,7 +149,7 @@ In this step, you'll generate an SSH key pair and add the public key to your Git
 
    - When **prompted**, it's advisable to opt for default settings and leave the passphrase empty for seamless deployment workflows. Adding a passphrase provides an extra layer of security, but it can introduce inconvenience. You'd be prompted to enter this passphrase each time you run deployment workflows. This could become tedious, especially if you revisit the project codebase after a prolonged period and potentially forget the passphrase.
 
-3. **Add SSH Key to the SSH-Agent**:
+4. **Add SSH Key to the SSH-Agent**:
 
    - **For macOS/Linux:** Execute the following commands in your terminal:
 
@@ -157,10 +157,12 @@ In this step, you'll generate an SSH key pair and add the public key to your Git
        eval "$(ssh-agent -s)"
        ssh-add ~/.ssh/id_rsa
      ```
-      If you are using an existing key, replace id_rsa with the name of your existing private key file if it's different.
+
+     If you are using an existing key, replace id_rsa with the name of your existing private key file if it's different.
+
    - **For Windows:** Utilize an SSH agent available through Git Bash, Cygwin, or another tool.
 
-4. **Add SSH Key to GitHub Account**:
+5. **Add SSH Key to GitHub Account**:
 
    - Execute this command to automatically copy the **SSH Public Key** to your clipboard to minimise error:
 
@@ -315,7 +317,7 @@ If your project incorporates **multiple DevKit templates** and you intend to run
 - Locate the line `const PORT = 3000;`.
 - Modify the port number (3000) to an alternative number (e.g., 3001) to distinguish each template’s local server.
 
-By doing this, you enable the concurrent running of distinct local servers, each serving project files from a different template, all while avoiding port conflicts. 
+By doing this, you enable the concurrent running of distinct local servers, each serving project files from a different template, all while avoiding port conflicts.
 
 <a name="importing-scripts-in-webflow"></a>
 
@@ -354,13 +356,13 @@ Integration steps:
 
 ### 2️⃣ Automated Method (Recommended)
 
-- Jump to [condensed version](https://github.com/reform-digital/webflow-devkit#2%EF%B8%8F%E2%83%A3-automated-method-recommended-1) (experienced DevKit users)
+- Jump to [condensed version](#importing-scripts-in-webflow2) (experienced DevKit users)
 
 DevKit offers a custom script import mechanism designed to streamline and automate the process of integrating JavaScript and CSS into your Webflow project. This approach eliminates the need for manual switching between script tags when moving from a development to a production environment, providing a smoother and more efficient workflow.
 
 ### Setup
 
-**`Step 1` Main Settings:** 
+**`Step 1` Main Settings:**
 
 Add this script to your site’s **global** settings in the **`<head>`** tag. The script is designed to configure essential variables for your project: the path to your npm package, the development mode toggle, and the local port number. These variables are crucial for script loader functions and other development processes across your site.
 
@@ -374,14 +376,14 @@ window.localPort = 3000; // Also change in bin/localport.js in VS Code
 </script>
 ```
 
-***Main Settings Configurations:***
+**_Main Settings Configurations:_**
 
-   - **NPM Path:** The Main Settings script includes a default `npmPath` that serves as a placeholder during the development phase. Initially, the template is configured to bypass this sample project path, so there's no immediate need to alter it during development. Once your project is ready for deployment and you've published your package to npm, you should update the `npmPath` variable to your own npm package path "@your-npm-username/your-package-name@version" to auto-direct the script and style loaders to your live production files via jsDelivr.
-   - **Dev Mode:** The `devMode` variable is a boolean that controls whether the development mode is active (**true**) or inactive (**false**). When `devMode` is `true` (development mode), the integrated script-loader and style-loader will first check for a local server instance initiated by either `pnpm dev` or `pnpm prod` within VS Code. If a local server is found, it serves the site files directly from there, allowing for real-time testing and development—this local version is only visible to you, while other visitors continue to access the production files. In the absence of a local server, the loaders will fall back to the production version, fetching files via jsDelivr. Furthermore, devMode enables detailed console logging for both local and npm file requests, aiding in the debugging process and clarifying which file sources are being rendered in your local browser. Conversely, when `devMode` is set to `false`, it signifies that the site is in its production phase. The loaders will then bypass the local server check and directly load files from npm to optimize performance. Console logs related to devMode activities are also disabled in production mode to maintain a clean and performance-focused environment.
-   - **Class Viewer:** The `classViewer` variable is a toggle (set to **true** to enable, or **false** to disable) that controls the Class Viewer widget during Dev Mode. This widget is a convenient tool designed to streamline the process of identifying element IDs and class names within the DOM. It eliminates the need to switch back to Webflow for this information, enhancing efficiency. When activated, simply clicking on any DOM element will bring up a modal that showcases the selected element's full hierarchy, including its parents, along with their respective classes and IDs. In cases where classes or IDs are absent, plain HTML tags are displayed. Moreover, clicking on any displayed tag automatically copies its class name, ID, or HTML tag to your clipboard, facilitating quick and easy referencing.
-   - **Local Port:** The `localPort` setting specifies the port number on which your local server is running. The default port is **3000** but can be altered to suit your needs, such as when running multiple local servers simultaneously. Adjust the `localPort` value in the main settings to your preferred port to direct the script-loader and style-loader to the correct local server. Ensure this change is also mirrored in the Webflow DevKit template within VS Code by modifying the file at `/bin/localport.js` to match otherwise the template will not connect accordingly. 
+- **NPM Path:** The Main Settings script includes a default `npmPath` that serves as a placeholder during the development phase. Initially, the template is configured to bypass this sample project path, so there's no immediate need to alter it during development. Once your project is ready for deployment and you've published your package to npm, you should update the `npmPath` variable to your own npm package path "@your-npm-username/your-package-name@version" to auto-direct the script and style loaders to your live production files via jsDelivr.
+- **Dev Mode:** The `devMode` variable is a boolean that controls whether the development mode is active (**true**) or inactive (**false**). When `devMode` is `true` (development mode), the integrated script-loader and style-loader will first check for a local server instance initiated by either `pnpm dev` or `pnpm prod` within VS Code. If a local server is found, it serves the site files directly from there, allowing for real-time testing and development—this local version is only visible to you, while other visitors continue to access the production files. In the absence of a local server, the loaders will fall back to the production version, fetching files via jsDelivr. Furthermore, devMode enables detailed console logging for both local and npm file requests, aiding in the debugging process and clarifying which file sources are being rendered in your local browser. Conversely, when `devMode` is set to `false`, it signifies that the site is in its production phase. The loaders will then bypass the local server check and directly load files from npm to optimize performance. Console logs related to devMode activities are also disabled in production mode to maintain a clean and performance-focused environment.
+- **Class Viewer:** The `classViewer` variable is a toggle (set to **true** to enable, or **false** to disable) that controls the Class Viewer widget during Dev Mode. This widget is a convenient tool designed to streamline the process of identifying element IDs and class names within the DOM. It eliminates the need to switch back to Webflow for this information, enhancing efficiency. When activated, simply clicking on any DOM element will bring up a modal that showcases the selected element's full hierarchy, including its parents, along with their respective classes and IDs. In cases where classes or IDs are absent, plain HTML tags are displayed. Moreover, clicking on any displayed tag automatically copies its class name, ID, or HTML tag to your clipboard, facilitating quick and easy referencing.
+- **Local Port:** The `localPort` setting specifies the port number on which your local server is running. The default port is **3000** but can be altered to suit your needs, such as when running multiple local servers simultaneously. Adjust the `localPort` value in the main settings to your preferred port to direct the script-loader and style-loader to the correct local server. Ensure this change is also mirrored in the Webflow DevKit template within VS Code by modifying the file at `/bin/localport.js` to match otherwise the template will not connect accordingly.
 
-**`Step 2` Style Loader:** 
+**`Step 2` Style Loader:**
 
 Add this script to your site’s **global** settings in the **`<head>`** tag. It enables the dynamic loading of styles based on the development server’s status.
 
@@ -390,18 +392,18 @@ Add this script to your site’s **global** settings in the **`<head>`** tag. It
 <script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/style-loader.js"></script>
 ```
 
-**`Step 3` Script Loader:** 
+**`Step 3` Script Loader:**
 
 Add this script to your site’s **global** settings before the **`</body>`** closing tag. It enables the dynamic loading of scripts based on the development server’s status.
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/script-loader.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/script-loader.js"></script>
 ```
 
 ### Import Files
 
-**`Global` Styles:** 
+**`Global` Styles:**
 
 If you have any global CSS files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings in the **`<head>`** tag, under the Style Loader script. Add and remove file names as required (the globalStyles variable is a comma-separated array).
 
@@ -413,7 +415,7 @@ loadWebflowStylesheets(globalStyles, npmPath);
 </script>
 ```
 
-**`Global` Scripts:** 
+**`Global` Scripts:**
 
 If you have any global JavaScript files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings before the **`</body>`** closing tag, under the Script Loader script. Add and remove file names as required (the globalScripts variable is a comma-separated array).
 
@@ -425,7 +427,7 @@ loadWebflowScripts(globalScripts, npmPath);
 </script>
 ```
 
-**`Page` Styles:** 
+**`Page` Styles:**
 
 If you have any page-specific CSS files that should be loaded on a specific page, import them by adding the following script to your **page** settings in the **`<head>`** tag.
 
@@ -439,8 +441,7 @@ loadWebflowStylesheets(pageStyles, npmPath);
 
 For the About page for example, if you have created an `about.css` in your src folder, you would replace `const pageStyles = ["home.css"];` with `const pageStyles = ["about.css"];`
 
-
-**`Page` Scripts:** 
+**`Page` Scripts:**
 
 If you have any page-specific JavaScript files that should be loaded on a specific page, import them by adding the following script to your **page** settings before the **`</body>`** closing tag.
 
@@ -507,7 +508,8 @@ To build and initiate the development server, execute:
 ```
 pnpm ship
 ```
-Note: If you are using the GitHub extension for VS Code, you might receive the message "GitHub for VS Code is requesting additional permissions”. If so, review the permissions requested by the app and grant the necessary permissions. 
+
+Note: If you are using the GitHub extension for VS Code, you might receive the message "GitHub for VS Code is requesting additional permissions”. If so, review the permissions requested by the app and grant the necessary permissions.
 
 ### Pre-shipment Checklist
 
@@ -782,7 +784,8 @@ Once you've become a seasoned DevKit pro, you can skip the detailed Readme aimed
 ```
 ls -al ~/.ssh
 ```
-Look for files named `id_rsa.pub`, `id_ecdsa.pub`, or `id_ed25519.pub`. If such a file exists, you can skip the next steps and jump to "**Add public key to GitHub**"  if you haven't already done so previously.
+
+Look for files named `id_rsa.pub`, `id_ecdsa.pub`, or `id_ed25519.pub`. If such a file exists, you can skip the next steps and jump to "**Add public key to GitHub**" if you haven't already done so previously.
 
 #### Generate SSH Key Pair:
 
@@ -893,7 +896,6 @@ pnpm prod
 
 #### `Main Settings`: Add in global `<head>` tag
 
-
 ```
 <!-- RD® Webflow DevKit / Main Settings -->
 <script>
@@ -915,7 +917,7 @@ window.localPort = 3000; // Also change in bin/localport.js in VS Code
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/script-loader.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/script-loader.js"></script>
 ```
 
 ### Project Code (Page level):
@@ -962,9 +964,6 @@ loadWebflowStylesheets(globalStyles, npmPath);
 </script>
 ```
 
-
-
-
 <a name="shipping-to-npm2"></a>
 
 ## 🚀 Shipping to NPM
@@ -972,6 +971,7 @@ loadWebflowStylesheets(globalStyles, npmPath);
 ```
 pnpm ship
 ```
+
 If you are using the GitHub extension for VS Code, grant the necessary permissions if prompted.
 
 ### Post-Shipment Steps:
