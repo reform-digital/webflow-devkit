@@ -1,5 +1,7 @@
 # Webflow DevKit™ – by Reform Digital®
 
+![DevKit Image](https://uploads-ssl.webflow.com/61700604b1b79e1cd9ef9412/6618f3d81b4b7e5a7b89c264_DevKit.png "Webflow DevKit")
+
 Webflow DevKit serves as a powerful template, employed by the development team at [Reform Digital®](https://reform.digital) - an award-winning Webflow agency and partner. Designed with a keen emphasis on upholding best practices and optimizing workflows, it aims to revolutionize web development processes. Specifically sculpted to complement Webflow development, this kit harmoniously integrates simplicity and efficiency, seeking to seamlessly embed them into your project lifecycle.
 
 Before diving into development, please read through this documentation to familiarize yourself with the working structure of the template.
