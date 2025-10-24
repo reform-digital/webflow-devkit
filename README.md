@@ -226,9 +226,13 @@ Now, you'll securely store your SSH private key in the GitHub repository as a se
 3. **Create an NPM Access Token:**
 
    - Click on your profile icon in NPM and select `Access Tokens`.
-   - Generate a new `Classic Token`.
+   - Click `Generate New Token` and select `Granular Access Token`.
    - Name it descriptively, such as "Your-Project-Name NPM Token".
-   - Select `Automation` type and click `Generate Token` to finish.
+   - **Configure Permissions:**
+     - Select `Read and write` access (required for publishing packages)
+     - Choose the appropriate scope (your package scope or organization)
+   - **Set Expiration:** Choose between 7-90 days (recommended: 30 days for regular rotation)
+   - Click `Generate Token` to finish.
 
 4. **Copy Your NPM Token:**
 
@@ -889,9 +893,11 @@ Name it `SSH_TOKEN` and paste key content.
 ### Step 4: Setup NPM
 
 - (Optional) Create NPM Organization: Skip if not needed.
-- Create NPM Access Token: Generate a classic token, automation type, named descriptively.
-- Copy NPM Token: Ensure you've copied it; it’s not retrievable later.
-- Add Token to GitHub as Secret: In your project’s GitHub settings, under Secrets and variables, add a new secret named `NPM_TOKEN` and paste the token.
+- Create NPM Granular Access Token: Generate a granular access token with read/write permissions, named descriptively.
+- Configure Token Permissions: Select "Read and write" access and appropriate scope.
+- Set Token Expiration: Choose 30-90 days (recommended: 30 days for regular rotation).
+- Copy NPM Token: Ensure you've copied it; it's not retrievable later.
+- Add Token to GitHub as Secret: In your project's GitHub settings, under Secrets and variables, add a new secret named `NPM_TOKEN` and paste the token.
 
 <a name="step-5-setup-your-project2"></a>
 
