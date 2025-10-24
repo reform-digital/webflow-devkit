@@ -14,22 +14,7 @@ const OUT_DIR = isProd ? "prod" : "dev";
 const ENV_NAME = isProd ? "PROD" : "DEV";
 const LOG_COLOR = isProd ? "\x1b[96m" : "\x1b[32m";
 
-app.use(serveClassViewer);
 app.use(express.static(OUT_DIR));
-
-function serveClassViewer(req, res, next) {
-  if (req.path === "/classViewer.js") {
-    if (!isProd) {
-      let classViewerPath = path.join(__dirname, "classViewer.js");
-      return res.sendFile(classViewerPath);
-    } else {
-      res.type(".js");
-      return res.send("");
-    }
-  } else {
-    next();
-  }
-}
 
 server.on("upgrade", (request, socket, head) => {
   wss.handleUpgrade(request, socket, head, (ws) => {

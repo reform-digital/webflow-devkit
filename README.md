@@ -375,7 +375,6 @@ Add this script to your site’s **global** settings in the **`<head>`** tag. Th
 <script>
 window.npmPath = "@reform-digital/sample-project@1.0.0"; // Update this once you have shipped to npm.
 window.devMode = true; // Change to false in production
-window.classViewer = true; // Helper to display classes and ids in DevMode
 window.localPort = 3000; // Also change in bin/localport.js in VS Code
 </script>
 ```
@@ -384,7 +383,6 @@ window.localPort = 3000; // Also change in bin/localport.js in VS Code
 
 - **NPM Path:** The Main Settings script includes a default `npmPath` that serves as a placeholder during the development phase. Initially, the template is configured to bypass this sample project path, so there's no immediate need to alter it during development. Once your project is ready for deployment and you've published your package to npm, you should update the `npmPath` variable to your own npm package path "@your-npm-username/your-package-name@version" to auto-direct the script and style loaders to your live production files via jsDelivr.
 - **Dev Mode:** The `devMode` variable is a boolean that controls whether the development mode is active (**true**) or inactive (**false**). When `devMode` is `true` (development mode), the integrated script-loader and style-loader will first check for a local server instance initiated by either `pnpm dev` or `pnpm prod` within VS Code. If a local server is found, it serves the site files directly from there, allowing for real-time testing and development—this local version is only visible to you, while other visitors continue to access the production files. In the absence of a local server, the loaders will fall back to the production version, fetching files via jsDelivr. Furthermore, devMode enables detailed console logging for both local and npm file requests, aiding in the debugging process and clarifying which file sources are being rendered in your local browser. Conversely, when `devMode` is set to `false`, it signifies that the site is in its production phase. The loaders will then bypass the local server check and directly load files from npm to optimize performance. Console logs related to devMode activities are also disabled in production mode to maintain a clean and performance-focused environment.
-- **Class Viewer:** The `classViewer` variable is a toggle (set to **true** to enable, or **false** to disable) that controls the Class Viewer widget during Dev Mode. This widget is a convenient tool designed to streamline the process of identifying element IDs and class names within the DOM. It eliminates the need to switch back to Webflow for this information, enhancing efficiency. When activated, simply clicking on any DOM element will bring up a modal that showcases the selected element's full hierarchy, including its parents, along with their respective classes and IDs. In cases where classes or IDs are absent, plain HTML tags are displayed. Moreover, clicking on any displayed tag automatically copies its class name, ID, or HTML tag to your clipboard, facilitating quick and easy referencing.
 - **Local Port:** The `localPort` setting specifies the port number on which your local server is running. The default port is **3000** but can be altered to suit your needs, such as when running multiple local servers simultaneously. Adjust the `localPort` value in the main settings to your preferred port to direct the script-loader and style-loader to the correct local server. Ensure this change is also mirrored in the Webflow DevKit template within VS Code by modifying the file at `/bin/localport.js` to match otherwise the template will not connect accordingly.
 
 **`Step 2` Style Loader:**
@@ -905,7 +903,6 @@ pnpm prod
 <script>
 window.npmPath = "@reform-digital/sample-project@1.0.0"; // Update this once you have shipped to npm.
 window.devMode = true; // Change to false in production
-window.classViewer = true; // Helper to display classes and ids in DevMode
 window.localPort = 3000; // Also change in bin/localport.js in VS Code
 </script>
 ```
