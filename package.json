@@ -40,7 +40,7 @@
   "lint-staged": {
     "src/**/*.{js,css}": [
       "prettier --write",
-      "eslint --fix --max-warnings -1"
+      "eslint --fix"
     ]
   }
 }
