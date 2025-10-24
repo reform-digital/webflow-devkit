@@ -16,14 +16,17 @@
     "dev": "node bin/build.js && node bin/server.js",
     "build": "NODE_ENV=production node bin/build.js",
     "prod": "NODE_ENV=production node bin/build.js && NODE_ENV=production node bin/server.js",
-    "ship": "node bin/ship.mjs"
+    "ship": "node bin/ship.mjs",
+    "prepare": "husky"
   },
   "devDependencies": {
     "esbuild": "^0.19.4",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^9.1.7",
     "javascript-obfuscator": "^4.1.0",
+    "lint-staged": "^16.2.6",
     "prettier": "^3.0.3"
   },
   "dependencies": {
@@ -32,5 +35,12 @@
     "express": "^4.18.2",
     "inquirer": "^9.2.11",
     "ws": "^8.16.0"
+  },
+  "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d",
+  "lint-staged": {
+    "src/**/*.{js,css}": [
+      "prettier --write",
+      "eslint --fix --max-warnings -1"
+    ]
   }
 }
