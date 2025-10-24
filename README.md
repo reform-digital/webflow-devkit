@@ -22,6 +22,7 @@ Before diving into development, please read through this documentation to famili
 - [How to use DevKit](#how-to-use-devkit)
   - [Project Folders](#project-folders)
   - [Building & Testing in Development](#building-testing-in-development)
+  - [Pre-commit Hooks](#pre-commit-hooks)
   - [Importing Scripts in Webflow](#importing-scripts-in-webflow)
   - [Building & Testing in Production](#building-testing-in-production)
   - [Shipping to NPM](#shipping-to-npm)
@@ -73,6 +74,10 @@ By leveraging the capabilities of this DevKit, developers can focus on what trul
 - **[Inquirer](https://github.com/SBoudrias/Inquirer.js/):** A user interface library designed to streamline the deployment process. By presenting users with interactive checklists and guided questions, it negates the need for manual editing of scripts and JSON files, ensuring a smoother and more intuitive package setup.
 
 - **[jQuery](https://jquery.com/):** A fast, small, and feature-rich JavaScript library designed to simplify tasks like HTML document traversal and manipulation, event handling, and animation. Webflow projects automatically include the jQuery library, enabling developers to utilize its functionalities without any additional setup. Recognizing this, Webflow DevKit seamlessly integrates support for jQuery syntax, without the need to import the library.
+
+- **[Husky](https://typicode.github.io/husky/):** A tool for managing Git hooks, ensuring that code quality checks run automatically before commits. This prevents poorly formatted or linted code from being committed to the repository.
+
+- **[lint-staged](https://github.com/okonet/lint-staged):** A tool that runs linters on staged Git files, ensuring that only the files you're committing are checked and formatted. This provides fast, efficient code quality enforcement during the commit process.
 
 <a name="prerequisites"></a>
 
@@ -322,6 +327,47 @@ If your project incorporates **multiple DevKit templates** and you intend to run
 - Modify the port number (3000) to an alternative number (e.g., 3001) to distinguish each template’s local server.
 
 By doing this, you enable the concurrent running of distinct local servers, each serving project files from a different template, all while avoiding port conflicts.
+
+<a name="pre-commit-hooks"></a>
+
+## 🔒 Pre-commit Hooks
+
+Webflow DevKit includes automatic code quality enforcement through pre-commit hooks powered by Husky and lint-staged. This ensures consistent code formatting and catches linting errors before they reach your repository.
+
+### How It Works
+
+When you commit code, the following happens automatically:
+
+1. **Prettier** formats your JavaScript and CSS files in the `src/` directory
+2. **ESLint** checks for and auto-fixes common issues
+3. **Commit is blocked** if any ESLint errors are found
+4. **Auto-fixed files** are automatically staged and included in the commit
+
+### What Gets Checked
+
+- **Files**: Only files in `src/**/*.{js,css}` are processed
+- **Formatting**: Prettier ensures consistent code style
+- **Linting**: ESLint catches errors and auto-fixes when possible
+- **Performance**: Only staged files are checked (fast commits)
+
+### Benefits
+
+- **Automatic formatting**: No need to manually run Prettier
+- **Error prevention**: Catches issues before they reach CI/CD
+- **Team consistency**: Everyone gets the same code style
+- **Editor agnostic**: Works regardless of your editor or extensions
+- **Fast**: Only processes files you're actually committing
+
+### Troubleshooting
+
+If a commit is blocked due to linting errors:
+
+1. **Check the error message** in your terminal
+2. **Fix the issues** manually in your editor
+3. **Stage the fixes** with `git add`
+4. **Commit again** - the hooks will re-run
+
+The pre-commit hooks are automatically set up when you run `pnpm install` thanks to the `prepare` script in package.json.
 
 <a name="importing-scripts-in-webflow"></a>
 
@@ -761,6 +807,7 @@ Once you've become a seasoned DevKit pro, you can skip the detailed Readme aimed
   - [Step 5: Setup Your Project](#step-5-setup-your-project2)
 - [How to use DevKit](#how-to-use-devkit2)
   - [Building & Testing](#building-testing2)
+  - [Pre-commit Hooks](#pre-commit-hooks2)
   - [Importing Scripts](#importing-scripts-in-webflow2)
   - [Shipping to NPM](#shipping-to-npm2)
   - [Addressing Version Caching](#addressing-version-caching2)
@@ -881,6 +928,26 @@ pnpm dev
 ```
 pnpm prod
 ```
+
+<a name="pre-commit-hooks2"></a>
+
+## 🔒 Pre-commit Hooks
+
+### Automatic Code Quality
+
+Pre-commit hooks automatically format and lint your code before commits:
+
+- **Prettier** formats JavaScript and CSS files in `src/`
+- **ESLint** catches and auto-fixes errors
+- **Commit blocked** if ESLint errors are found
+- **Auto-setup** when running `pnpm install`
+
+### Troubleshooting
+
+If commit is blocked:
+1. Fix the linting errors shown in terminal
+2. Stage fixes with `git add`
+3. Commit again
 
 <a name="importing-scripts-in-webflow2"></a>
 
