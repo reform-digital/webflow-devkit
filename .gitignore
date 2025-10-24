@@ -27,3 +27,7 @@ yarn-error.log
 # pnpm
 .pnpm/
 
+# Package manager lock files (using pnpm)
+package-lock.json
+yarn.lock
+
