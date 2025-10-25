@@ -779,10 +779,9 @@ Once you've become a seasoned DevKit pro, you can skip the detailed Readme aimed
 
 - [Installation](#installation2)
   - [Step 1: Setup Template](#step-1-setup-template2)
-  - [Step 2: Setup Public SSH Key](#step-2-setup-public-ssh-key-first-time-only2)
-  - [Step 3: Setup Private SSH Key](#step-3-setup-private-ssh-key-for-every-new-project2)
-  - [Step 4: Setup NPM](#step-4-setup-npm2)
-  - [Step 5: Setup Your Project](#step-5-setup-your-project2)
+  - [Step 2: Setup NPM](#step-2-setup-npm2)
+  - [Step 3: Setup Personal Access Token](#step-3-setup-personal-access-token2)
+  - [Step 4: Setup Your Project](#step-4-setup-your-project2)
 - [How to use DevKit](#how-to-use-devkit2)
   - [Building & Testing](#building-testing2)
   - [Pre-commit Hooks](#pre-commit-hooks2)
@@ -802,80 +801,46 @@ Once you've become a seasoned DevKit pro, you can skip the detailed Readme aimed
 - Click on "Use this template" in GitHub and clone as private repository.
 - Open locally with GitHub Desktop and open project in Visual Studio Code.
 
-<a name="step-2-setup-public-ssh-key-first-time-only2"></a>
 
-### Step 2: Setup SSH Key Pair & Public Key (First-Time Only)
+### Step 2: Setup NPM
 
-#### Check for Existing SSH Keys:
+- Create NPM account
+- Generate NPM Granular Access Token with read/write permissions
+- Set Token Expiration: 30-90 days (recommended: 30 days)
+- Copy NPM Token (not retrievable later)
 
-```
-ls -al ~/.ssh
-```
+**Add NPM Token to GitHub Secrets:**
 
-Look for files named `id_rsa.pub`, `id_ecdsa.pub`, or `id_ed25519.pub`. If such a file exists, you can skip the next steps and jump to "**Add public key to GitHub**" if you haven't already done so previously.
+**For Solo Developers:**
+- Go to project repository → Settings → Secrets and variables → Actions
+- New repository secret: Name `NPM_TOKEN`, paste token
 
-#### Generate SSH Key Pair:
+**For Organization Teams:**
+- **Option A (Free):** Add to each repository's secrets
+- **Option B (Paid):** Add to organization secrets (requires paid plan)
 
-```
-Run ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-```
+<a name="step-3-setup-personal-access-token2"></a>
 
-#### Add Key to SSH-Agent:
+### Step 3: Setup Personal Access Token
 
-```
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
-```
+- Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
+- Generate new token (classic)
+- Configure scopes: repo, workflow, write:packages, read:packages
+- Copy token immediately (not retrievable later)
 
-#### Copy public key:
+**Add PAT to GitHub Secrets:**
 
-```
-cat ~/.ssh/id_rsa.pub | pbcopy
-```
+**For Solo Developers:**
+- Go to project repository → Settings → Secrets and variables → Actions
+- New repository secret: Name `PERSONAL_ACCESS_TOKEN`, paste PAT
 
-Or manual copy:
+**For Organization Teams:**
+- **Option A (Free):** Add to each repository's secrets
+- **Option B (Paid):** Add to organization secrets (requires paid plan)
 
-```
-cat ~/.ssh/id_rsa.pub
-```
+<a name="step-4-setup-your-project2"></a>
 
-#### Add public key to GitHub:
-
-Go to GitHub > Settings > SSH and GPG keys > New SSH key, paste key, and save.
-
-<a name="step-3-setup-private-ssh-key-for-every-new-project2"></a>
-
-### Step 3: Setup Private SSH Key (Per Project)
-
-#### Copy private key:
-
-```
-cat ~/.ssh/id_rsa | pbcopy
-```
-
-Or manual copy:
-
-```
-cat ~/.ssh/id_rsa
-```
-
-Go to Repo > Settings > Secrets and variables > Actions > New repository secret.
-Name it `SSH_TOKEN` and paste key content.
-
-<a name="step-4-setup-npm2"></a>
-
-### Step 4: Setup NPM
-
-- (Optional) Create NPM Organization: Skip if not needed.
-- Create NPM Granular Access Token: Generate a granular access token with read/write permissions, named descriptively.
-- Configure Token Permissions: Select "Read and write" access and appropriate scope.
-- Set Token Expiration: Choose 30-90 days (recommended: 30 days for regular rotation).
-- Copy NPM Token: Ensure you've copied it; it's not retrievable later.
-- Add Token to GitHub as Secret: In your project's GitHub settings, under Secrets and variables, add a new secret named `NPM_TOKEN` and paste the token.
-
-<a name="step-5-setup-your-project2"></a>
-
-### Step 3: Setup Your Project Setup
+### Step 4: Setup Your Project
 
 #### Install pnpm: (Skip if already installed)
 
