@@ -415,7 +415,7 @@ Add this script to your site’s **global** settings in the **`<head>`** tag. It
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/style-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.2.1/prod/style-loader.js"></script>
 ```
 
 **`Step 3` Script Loader:**
@@ -424,7 +424,7 @@ Add this script to your site’s **global** settings before the **`</body>`** cl
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/script-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.2.1/prod/script-loader.js"></script>
 ```
 
 ### Import Files
@@ -958,14 +958,14 @@ window.localPort = 3000; // Also change in bin/localport.js in VS Code
 
 ```
 <!-- RD® Webflow DevKit / Style Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/style-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.2.1/prod/style-loader.js"></script>
 ```
 
 #### `Script-Loader`: Add before global `</body>` closing tag
 
 ```
 <!-- RD® Webflow DevKit / Script Loader -->
-<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.1.0/prod/script-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.2.1/prod/script-loader.js"></script>
 ```
 
 ### Project Code (Page level):
