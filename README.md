@@ -15,10 +15,9 @@ Before diving into development, please read through this documentation to famili
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
   - [Step 1: Setup Template](#step-1-setup-template)
-  - [Step 2: Setup Public SSH Key](#step-2-setup-public-ssh-key-first-time-only)
-  - [Step 3: Setup Private SSH Key](#step-3-setup-private-ssh-key-for-every-new-project)
-  - [Step 4: Setup NPM](#step-4-setup-npm)
-  - [Step 5: Setup Your Project](#step-5-setup-your-project)
+  - [Step 2: Setup NPM](#step-2-setup-npm)
+  - [Step 3: Setup Personal Access Token](#step-3-setup-personal-access-token)
+  - [Step 4: Setup Your Project](#step-4-setup-your-project)
 - [How to use DevKit](#how-to-use-devkit)
   - [Project Folders](#project-folders)
   - [Building & Testing in Development](#building-testing-in-development)
@@ -117,100 +116,7 @@ If you are an existing DevKit user, you can skip this detailed guide and view th
    - Click on the `Repository` tab in the top menu, and choose `Open in Visual Studio Code` or use the quick button link.
    - Visual Studio Code should launch, opening your project repository locally, ready for development.
 
-### Understanding Steps 2 & 3 (SSH Key Configuration)
-
-When working on software projects, especially those that involve collaboration or automation, secure access to resources becomes paramount. A widely adopted method for securing this access is through **SSH (Secure SHell)** keys, a cryptographic system that facilitates encrypted communication between your computer and platforms like GitHub.
-
-SSH keys work in pairs: a `private key` and a `public key`. Upon generation, the private key remains on your computer and should be kept confidential. For certain automated workflows, like those in the Webflow DevKit template, the private key is required to be securely stored within the GitHub repository as a secret. This private key is always paired with its corresponding public key, which is stored in your general GitHub account settings. The public key's role is to recognize and trust incoming connections from your computer, ensuring authenticated access.
-
-For our specific use-case, we've incorporated **GitHub Actions** as our **Continuous Integration (CI)** and **Continuous Deployment (CD)** mechanism. This CI/CD mechanism handles tasks like automating version bumping and deploying production code to NPM, which can subsequently get served to your Webflow project via JsDelivr.
-
-The steps that follow will walk you through the generation of an `SSH key pair`, integrating it with your GitHub account for authentication, and then securely archiving the private key in your GitHub repository as a secret. This structured approach ensures both your project and GitHub Actions can securely liaise with vital resources on GitHub, eliminating the need for exposing direct login credentials.
-
-## Step 2: Setup SSH Key Pair & Public Key (First-Time Only)
-
-In this step, you'll generate an SSH key pair and add the public key to your GitHub account, enabling GitHub to recognize and trust communications from your computer. The good news is, once you've set this up, you won't have to repeat this step for future projects. It's a one-time configuration that benefits all your subsequent projects. To begin:
-
-1. **Open Terminal**:
-
-   - Open a new terminal window within your Visual Studio Code session that contains your current project. You can achieve this by selecting `Terminal` from the main toolbar, followed by `New Terminal`. Alternatively, Mac users can use the `control`+`~` shortcut.
-
-2. **Check for Existing SSH Keys**:
-
-   - Before creating a new SSH key, it's important to check if you already have an existing key that you can use.
-   - Open your terminal and execute the following command to see if existing SSH keys are present:
-
-     ```sh
-     ls -al ~/.ssh
-     ```
-
-   - Look for files named `id_rsa.pub`, `id_ecdsa.pub`, or `id_ed25519.pub`. If such a file exists, you can skip Steps 3 & 4 below and proceed to add the key to GitHub (Step 5), **if you haven't already added it previously**.
-
-   - If no existing keys are suitable, or if you prefer to create a new one, follow the steps below to generate a new SSH key pair.
-
-3. **Generate SSH Key Pair**:
-
-   - Execute the following command in your terminal. Ensure the `email` you use matches the one registered on your GitHub account.
-
-     ```sh
-       ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-     ```
-
-   - When **prompted**, it's advisable to opt for default settings and leave the passphrase empty for seamless deployment workflows. Adding a passphrase provides an extra layer of security, but it can introduce inconvenience. You'd be prompted to enter this passphrase each time you run deployment workflows. This could become tedious, especially if you revisit the project codebase after a prolonged period and potentially forget the passphrase.
-
-4. **Add SSH Key to the SSH-Agent**:
-
-   - **For macOS/Linux:** Execute the following commands in your terminal:
-
-     ```sh
-       eval "$(ssh-agent -s)"
-       ssh-add ~/.ssh/id_rsa
-     ```
-
-     If you are using an existing key, replace id_rsa with the name of your existing private key file if it's different.
-
-   - **For Windows:** Utilize an SSH agent available through Git Bash, Cygwin, or another tool.
-
-5. **Add SSH Key to GitHub Account**:
-
-   - Execute this command to automatically copy the **SSH Public Key** to your clipboard to minimise error:
-
-     - **Mac**:
-       ```sh
-       cat ~/.ssh/id_rsa.pub | pbcopy
-       ```
-       If you are using an existing key, replace id_rsa with the name of your existing public key file if it's different.
-     - **Manual Copying** (make sure to copy all contents after running command):
-       ```sh
-       cat ~/.ssh/id_rsa.pub
-       ```
-
-   - Navigate to your GitHub account's SSH settings (`Profile icon` > `Settings` > `SSH and GPG keys`).
-   - Click `New SSH key`, assign a descriptive `Title`, choose `Authentication key` under Key type, paste your copied public key under `Key`, and save it by pressing `Add SSH key`.
-
-## Step 3: Setup Private SSH Key (For Every New Project)
-
-Now, you'll securely store your SSH private key in the GitHub repository as a secret. This step is essential for enabling secure interactions between your project and the integrated CI/CD tools, allowing them to authenticate as if they were your computer.
-
-1.  **Store SSH Key as GitHub Secret in the Repository**:
-
-    - Execute this command to automatically copy the **SSH Private Key** to your clipboard to minimise error:
-      - **Mac:**
-        ```sh
-        cat ~/.ssh/id_rsa | pbcopy
-        ```
-      - **Manual Copying** (make sure to copy all contents including the **BEGIN** and **END** tags):
-        ```sh
-        cat ~/.ssh/id_rsa
-        ```
-    - Navigate to your new project repository on GitHub (the one where you cloned this template).
-    - Go to the project `Settings`. Make sure you are in the project settings and not the global account settings accessed via your profile image.
-    - In the sidebar menu under the `Security` section, click on the `Secrets and variables` dropdown, then choose `Actions`.
-    - Click `New repository secret`.
-    - Name it **`SSH_TOKEN`** (name must match this exactly) and paste the SSH private key content into the value field.
-    - Click `Add secret` to finalize.
-
-## Step 4: Setup NPM
+## Step 2: Setup NPM
 
 1. **Create a Free NPM Account:**
 
@@ -220,7 +126,7 @@ Now, you'll securely store your SSH private key in the GitHub repository as a se
 
    - If you intend to manage your package under your own account/organization, you may **skip this step**.
    - If multiple owners or specific permissions for a project are required (e.g., for a client project), create a new NPM organization under your account.
-   - Name it according to your client’s company or project name.
+   - Name it according to your client's company or project name.
    - Grant your client permission to this organization whenever needed.
 
 3. **Create an NPM Access Token:**
@@ -238,15 +144,83 @@ Now, you'll securely store your SSH private key in the GitHub repository as a se
 
    - Ensure that the generated token is copied as it cannot be viewed again.
 
-5. **Add the NPM Token as a GitHub Secret:**
-   - Navigate to your new project repository on GitHub (the one you created by cloning this template).
-   - Go to the project `Settings`, ensuring you are accessing project-specific settings (which are accessed via a link on the project toolbar), not global account settings (which are accessed via your profile icon).
-   - In the sidebar menu under the `Security` section, select the `Secrets and variables` dropdown, then choose `Actions`.
-   - Click `New repository secret`.
-   - Name it **`NPM_TOKEN`** (name must match this exactly) and paste the NPM token into the value field.
-   - Click `Add secret` to finalize.
+5. **Add the NPM Token to GitHub Secrets:**
 
-## Step 5: Setup Your Project
+   **For Solo Developers:**
+   - Navigate to your project repository on GitHub
+   - Go to the project `Settings` → `Secrets and variables` → `Actions`
+   - Click `New repository secret`
+   - Name: `NPM_TOKEN`
+   - Value: Paste your NPM token
+   - Click `Add secret`
+
+   **For Organization Teams:**
+
+   **Option A: For Each New Repository (Free)**
+   - Go to each project repository → `Settings` → `Secrets and variables` → `Actions`
+   - Click `New repository secret`
+   - Name: `NPM_TOKEN`
+   - Value: Paste your NPM token
+   - Click `Add secret`
+   - **Note:** Repeat this process for each new repository
+
+   **Option B: Only Once for Whole Organization (Paid)**
+   - **⚠️ Prerequisite:** Ensure your GitHub organization has a **paid plan** (required for organization secrets with private repositories)
+   - Go to organization settings → `Secrets and variables` → `Actions`
+   - Click `New organization secret`
+   - Name: `NPM_TOKEN`
+   - Value: Paste your NPM token
+   - Repository access: Select "All repositories"
+   - Click `Add secret`
+   - **Note:** This automatically works for all repositories in the organization
+
+## Step 3: Setup Personal Access Token
+
+1. **Create GitHub Personal Access Token:**
+
+   - Go to GitHub Settings → `Developer settings` → `Personal access tokens` → `Tokens (classic)`
+   - Click `Generate new token (classic)`
+   - **Token Configuration:**
+     - **Note:** "DevKit Template - [Project Name]"
+     - **Expiration:** 90 days (recommended)
+     - **Scopes:** Select the following:
+       - ✅ **`repo`** (Full control of private repositories)
+       - ✅ **`workflow`** (Update GitHub Action workflows)
+       - ✅ **`write:packages`** (Upload packages to GitHub Package Registry)
+       - ✅ **`read:packages`** (Download packages from GitHub Package Registry)
+   - Click `Generate token`
+   - **Copy the token immediately** (you won't see it again!)
+
+2. **Add PAT to GitHub Secrets:**
+
+   **For Solo Developers:**
+   - Go to your project repository → `Settings` → `Secrets and variables` → `Actions`
+   - Click `New repository secret`
+   - Name: `PERSONAL_ACCESS_TOKEN`
+   - Value: Paste your PAT
+   - Click `Add secret`
+
+   **For Organization Teams:**
+
+   **Option A: For Each New Repository (Free)**
+   - Go to each project repository → `Settings` → `Secrets and variables` → `Actions`
+   - Click `New repository secret`
+   - Name: `PERSONAL_ACCESS_TOKEN`
+   - Value: Paste your PAT
+   - Click `Add secret`
+   - **Note:** Repeat this process for each new repository
+
+   **Option B: Only Once for Whole Organization (Paid)**
+   - **⚠️ Prerequisite:** Ensure your GitHub organization has a **paid plan** (required for organization secrets with private repositories)
+   - Go to organization settings → `Secrets and variables` → `Actions`
+   - Click `New organization secret`
+   - Name: `PERSONAL_ACCESS_TOKEN`
+   - Value: Paste your PAT
+   - Repository access: Select "All repositories"
+   - Click `Add secret`
+   - **Note:** This automatically works for all repositories in the organization
+
+## Step 4: Setup Your Project
 
 This section guides you through setting up your project package in Visual Studio Code, which involves installing a package manager, managing dependencies, and initial setup. Make sure you have the correct project and directory loaded in Visual Studio Code – you can always use GitHub desktop to load the correct repository (as you did in [Step 1.4](#step-1-setup-template)).
 
@@ -901,7 +875,7 @@ Name it `SSH_TOKEN` and paste key content.
 
 <a name="step-5-setup-your-project2"></a>
 
-### Step 5: Setup Your Project Setup
+### Step 3: Setup Your Project Setup
 
 #### Install pnpm: (Skip if already installed)
 
