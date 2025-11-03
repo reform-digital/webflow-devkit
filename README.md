@@ -429,57 +429,31 @@ Add this script to your site’s **global** settings before the **`</body>`** cl
 
 ### Import Files
 
-**`Global` Styles:**
+Use the same import mechanism for both global and page-level assets. Add these snippets either to your site settings (to load on all pages) or to a specific page’s settings (to load only on that page). Update the arrays with the files you need.
 
-If you have any global CSS files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings in the **`<head>`** tag, under the Style Loader script. Add and remove file names as required (the globalStyles variable is a comma-separated array).
+**Styles (CSS):**
 
 ```
-<!-- RD® Webflow DevKit / Global Styles -->
+<!-- RD® Webflow DevKit / Styles -->
 <script>
-const globalStyles = ["global.css", "animation.css"];
-loadWebflowStylesheets(globalStyles, npmPath);
+const styles = ["global.css", "home.css"]; // add/remove as needed
+loadWebflowStylesheets(styles, npmPath);
 </script>
 ```
 
-**`Global` Scripts:**
+Add this to the site’s global settings in the `<head>` to load across all pages, or to a page’s `<head>` to load only on that page.
 
-If you have any global JavaScript files that should be loaded across all pages, import them by adding the following script to your site’s **global** settings before the **`</body>`** closing tag, under the Script Loader script. Add and remove file names as required (the globalScripts variable is a comma-separated array).
+**Scripts (JS):**
 
 ```
-<!-- RD® Webflow DevKit / Global Scripts -->
+<!-- RD® Webflow DevKit / Scripts -->
 <script>
-const globalScripts = ["global.js", "analytics.js"];
-loadWebflowScripts(globalScripts, npmPath);
+const scripts = ["global.js", "home.js"]; // add/remove as needed
+loadWebflowScripts(scripts, npmPath);
 </script>
 ```
 
-**`Page` Styles:**
-
-If you have any page-specific CSS files that should be loaded on a specific page, import them by adding the following script to your **page** settings in the **`<head>`** tag.
-
-```
-<!-- RD® Webflow DevKit / Page Styles -->
-<script>
-const pageStyles = ["home.css"];
-loadWebflowStylesheets(pageStyles, npmPath);
-</script>
-```
-
-For the About page for example, if you have created an `about.css` in your src folder, you would replace `const pageStyles = ["home.css"];` with `const pageStyles = ["about.css"];`
-
-**`Page` Scripts:**
-
-If you have any page-specific JavaScript files that should be loaded on a specific page, import them by adding the following script to your **page** settings before the **`</body>`** closing tag.
-
-```
-<!-- RD® Webflow DevKit / Page Scripts -->
-<script>
-const pageScripts = ["home.js"];
-loadWebflowScripts(pageScripts, npmPath);
-</script>
-```
-
-For the About page for example, if you have created an `about.js` in your src folder, you would replace `const pageScripts = ["home.js"];` with `const pageScripts = ["about.js"];`
+Add this before the `</body>` closing tag in the site’s global settings to load across all pages, or in a page’s settings to load only on that page.
 
 ### How It Works
 
@@ -933,47 +907,27 @@ window.localPort = 3000; // Also change in bin/localport.js in VS Code
 <script src="https://cdn.jsdelivr.net/npm/@reform-digital/webflow-devkit-utils@1.2.1/prod/script-loader.js"></script>
 ```
 
-### Project Code (Page level):
+### Project Code (Use for both Global or Page-level):
 
-#### Page `Scripts`: Add before page `</body>` closing tag
+Use the same import mechanism for both global and page-level assets. Add these snippets either to your site settings (to load on all pages) or to a specific page’s settings (to load only on that page). Update the arrays with the files you need.
+
+#### Styles (CSS): Add in `<head>`
 
 ```
-<!-- RD® Webflow DevKit / Page Scripts -->
+<!-- RD® Webflow DevKit / Styles -->
 <script>
-const pageScripts = ["home.js"];
-loadWebflowScripts(pageScripts, npmPath);
+const styles = ["global.css", "home.css"]; // add/remove as needed
+loadWebflowStylesheets(styles, npmPath);
 </script>
 ```
 
-#### Page `Styles`: Add in page `<head>` tag
+#### Scripts (JS): Add before `</body>`
 
 ```
-<!-- RD® Webflow DevKit / Page Styles -->
+<!-- RD® Webflow DevKit / Scripts -->
 <script>
-const pageStyles = ["home.css"];
-loadWebflowStylesheets(pageStyles, npmPath);
-</script>
-```
-
-### Project Code (Global):
-
-#### Global `Scripts`: Add before global `</body>` closing tag, under Script Loader.
-
-```
-<!-- RD® Webflow DevKit / Global Scripts -->
-<script>
-const globalScripts = ["global.js", "analytics.js"];
-loadWebflowScripts(globalScripts, npmPath);
-</script>
-```
-
-#### Global `Styles`: Add in global `<head>` tag, under Style Loader.
-
-```
-<!-- RD® Webflow DevKit / Global Styles -->
-<script>
-const globalStyles = ["global.css", "animation.css"];
-loadWebflowStylesheets(globalStyles, npmPath);
+const scripts = ["global.js", "home.js"]; // add/remove as needed
+loadWebflowScripts(scripts, npmPath);
 </script>
 ```
 
