@@ -30,24 +30,33 @@ wss.broadcast = (data) => {
   });
 };
 
-chokidar;
-chokidar
-  .watch(path.join(__dirname, "..", "src/**/*.{js,css,html}"))
-  .on("change", () => {
-    if (!isProd) {
-      exec("node bin/build.js", (error, stdout, stderr) => {
-        if (error) {
-          console.log(`\x1b[90mError during build: ${error}\x1b[0m`);
-          return;
-        }
-        if (stdout) console.log(`Build output: ${stdout}`);
-        if (stderr) console.log(`Build errors: ${stderr}`);
-        wss.broadcast("reload");
-      });
-    } else {
+const watchedRoot = path.resolve(__dirname, "..", "src");
+
+const triggerRebuildAndReload = () => {
+  if (!isProd) {
+    exec("node bin/build.js", (error, stdout, stderr) => {
+      if (error) {
+        console.log(`\x1b[90mError during build: ${error}\x1b[0m`);
+        return;
+      }
+      if (stdout) console.log(`Build output: ${stdout}`);
+      if (stderr) console.log(`Build errors: ${stderr}`);
       wss.broadcast("reload");
-    }
-  });
+    });
+  } else {
+    wss.broadcast("reload");
+  }
+};
+
+const watcher = chokidar.watch(watchedRoot, {
+  ignoreInitial: true,
+  awaitWriteFinish: { stabilityThreshold: 150, pollInterval: 50 },
+});
+
+watcher.on("all", (event, filePath) => {
+  if (!/\.(js|css|html)$/.test(filePath)) return;
+  triggerRebuildAndReload();
+});
 
 server.listen(localPort, () => {
   console.log(
